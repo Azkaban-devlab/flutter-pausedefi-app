@@ -12,8 +12,15 @@ This is a new Flutter project.
 ## Installation
 
 - Install the IDE <b>IntelliJ</b>
+- Open the IDE and the terminal
 - Access to your folder for clone this project 
-- ```git clone git@github.com:a-fontaine/pausedefi-app.git```
+- ```
+  $ mkdir projetflutter
+  $ git clone git@github.com:a-fontaine/pausedefi-app.git
+
+
+
+```
 
 This project is a starting point for a Flutter application.
 
