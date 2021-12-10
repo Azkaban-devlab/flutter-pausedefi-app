@@ -1,10 +1,19 @@
 # app_pause_defi
+## Table of Contents
+1. [General Information](#general-information)
+2. [Technologies](#technologies)
+3. [Installation](#installation)
+5. [FAQs](#faqs)
+## General Information
+This is a new Flutter project.
 
-A new Flutter project.
+## Technologies
 
-## Getting Started
+## Installation
 
-Installer l'IDE IntelliJ
+- Install the IDE <b>IntelliJ</b>
+- Access to your folder for clone this project 
+- ```git clone git@github.com:a-fontaine/pausedefi-app.git```
 
 This project is a starting point for a Flutter application.
 
