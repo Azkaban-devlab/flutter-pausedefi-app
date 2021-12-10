@@ -6,8 +6,7 @@ DevLab Application IIM - Pause Defi based on simple template flutter app
 
 Run the below command to run the app.
 
-- `flutter run -t lib/application/main/main.dart
-  ` In folder `flutter-pausedefi-app`
+- `flutter run -t lib/application/main/main.dart` In folder `flutter-pausedefi-app`
 
 ## Getting Started
 
