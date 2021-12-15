@@ -50,10 +50,9 @@ class HomeViewModel extends LockableViewModel {
       lock(homeLocker);
       try {
         DataResponse response = await _userEndpoint.myRooms();
-        final Room? data = response.data<Room>();
+        final List<Room>? data = response.data<List<Room>>();
         if (data != null) {
-          print(data);
-          rooms.add(data);
+          rooms.addAll(data);
         }
       } catch (e, s) {
         print(e);

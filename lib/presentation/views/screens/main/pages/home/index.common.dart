@@ -1,13 +1,11 @@
-import 'package:app/application/localizations/locale_keys.g.dart';
 import 'package:app/domain/data/models/room.model.dart';
-import 'package:app/domain/services/injected/authentication.service.dart';
 import 'package:app/presentation/styles/colors.dart';
+import 'package:app/presentation/styles/roundings.dart';
 import 'package:app/presentation/viewmodels/home/home.viewmodel.dart';
+import 'package:app/presentation/views/widgets/buttons/default_button.dart';
 import 'package:app/presentation/views/widgets/buttons/primary_button.dart';
 import 'package:app/presentation/views/widgets/buttons/secondary_button.dart';
-import 'package:app/presentation/views/widgets/custom/component_scaffold.dart';
 import 'package:app/presentation/views/widgets/custom/text_variant.dart';
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 ///
@@ -71,16 +69,36 @@ class _HomeCommonBody extends StatelessWidget {
         const SizedBox(
           height: 50,
         ),
-        SecondaryTextButton(
-          label: 'Créer un salon',
-          onTap: () => null,
-          uppercase: true,
+        Container(
+            height: 60,
+            margin: const EdgeInsets.symmetric(horizontal: 40),
+            child: OutlinedButton(
+                style: OutlinedButton.styleFrom(
+                    side: const BorderSide(
+                        color: AppColors.primaryColor, width: 2),
+                    shape: const RoundedRectangleBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(20)))),
+                onPressed: () => null,
+                child: Center(child: Text('Créer un salon'.toUpperCase())))),
+        const SizedBox(
+          height: 20,
         ),
-        PrimaryTextButton(
-          label: 'Rejoindre un salon',
-          onTap: () => null,
-          uppercase: true,
-        )
+        Container(
+            height: 60,
+            margin: const EdgeInsets.symmetric(horizontal: 40),
+            child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                    primary: AppColors.primaryColor,
+                    side: const BorderSide(
+                        color: AppColors.primaryColor, width: 2),
+                    shape: const RoundedRectangleBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(20)))),
+                onPressed: () => null,
+                child: Center(
+                    child: Text(
+                  'Rejoindre un salon'.toUpperCase(),
+                  style: TextStyle(color: Colors.white),
+                )))),
       ],
     );
   }
@@ -104,7 +122,7 @@ class _RoomItem extends StatelessWidget {
             decoration: BoxDecoration(
               shape: BoxShape.circle,
               color: Colors.green,
-              border: Border.all(color: AppColors.primaryColor),
+              border: Border.all(color: AppColors.primaryColor, width: 2),
             ),
           ),
           const SizedBox(

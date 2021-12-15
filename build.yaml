@@ -1,0 +1,21 @@
+targets:
+  $default:
+    builders:
+      dart_json_mapper:
+        options:
+          iterables: List, Set, HashSet, UnmodifiableListView
+        generate_for:
+          # here should be listed entry point files having 'void main()' function
+          - lib/application/main/main.common.dart
+
+      # This part is needed to tell original reflectable builder to stay away
+      # it overrides default options for reflectable builder to an **empty** set of files
+      reflectable:
+        generate_for:
+          - no/files
+      source_gen|combining_builder:
+        options:
+          ignore_for_file:
+            - all
+            - lint_alpha
+            - lint_beta
