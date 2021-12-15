@@ -4,7 +4,7 @@ import 'package:app/domain/services/helpers/javascript/helper.dart';
 
 void main() {
   mainCommon(AppConfig(
-    appName: appName ?? 'App - Dev',
-    serverUrl: apiUrl ?? 'https://httpbin.org',
+    appName: appName ?? 'Pause Défi',
+    serverUrl: apiUrl ?? 'http://localhost:5000/',
   ));
 }

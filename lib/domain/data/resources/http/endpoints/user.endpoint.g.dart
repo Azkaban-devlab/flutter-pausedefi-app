@@ -1,5 +1,7 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
+// ignore_for_file: all, lint_alpha, lint_beta
+
 part of 'user.endpoint.dart';
 
 // **************************************************************************
@@ -25,7 +27,26 @@ class _UserEndpoint implements UserEndpoint {
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<DataResponse>(
             Options(method: 'GET', headers: _headers, extra: _extra)
-                .compose(_dio.options, '/users/me',
+                .compose(_dio.options, '/api/users/me',
+                    queryParameters: queryParameters, data: _data)
+                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = JsonMapper.fromMap<DataResponse>(_result.data!)!;
+    return value;
+  }
+
+  @override
+  Future<DataResponse> myRooms() async {
+    const _extra = <String, dynamic>{
+      'authenticate': true,
+      'refresh-token-not-need': true
+    };
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<DataResponse>(
+            Options(method: 'GET', headers: _headers, extra: _extra)
+                .compose(_dio.options, '/api/users/me/rooms',
                     queryParameters: queryParameters, data: _data)
                 .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = JsonMapper.fromMap<DataResponse>(_result.data!)!;

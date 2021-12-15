@@ -3,22 +3,22 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 ///
-/// [HomeMainViewModel]
+/// [MainViewModel]
 ///
-class HomeMainViewModel extends LockableViewModel {
+class MainViewModel extends LockableViewModel {
   ///
   /// Constructor
   ///
-  HomeMainViewModel();
+  MainViewModel();
 
   ///
   /// Build this ViewModel
   ///
-  static ChangeNotifierProvider<HomeMainViewModel> buildWithProvider(
+  static ChangeNotifierProvider<MainViewModel> buildWithProvider(
       {required Widget Function(BuildContext context, Widget? child)? builder,
       Widget? child}) {
-    return ChangeNotifierProvider<HomeMainViewModel>(
-      create: (BuildContext context) => HomeMainViewModel(),
+    return ChangeNotifierProvider<MainViewModel>(
+      create: (BuildContext context) => MainViewModel(),
       builder: builder,
       lazy: false,
       child: child,
@@ -28,7 +28,7 @@ class HomeMainViewModel extends LockableViewModel {
   ///
   /// Provide a built ViewModel
   ///
-  static HomeMainViewModel provide(BuildContext context, {bool listen = true}) {
-    return Provider.of<HomeMainViewModel>(context, listen: listen);
+  static MainViewModel provide(BuildContext context, {bool listen = true}) {
+    return Provider.of<MainViewModel>(context, listen: listen);
   }
 }

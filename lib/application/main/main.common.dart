@@ -20,7 +20,7 @@ Future<void> mainCommon(AppConfig appConfig) async {
 /// This method is required for data_json_mapper for class generation
 void main() {
   mainCommon(const AppConfig(
-    appName: 'App',
-    serverUrl: 'https://httpbin.org',
+    appName: 'Pause Défi',
+    serverUrl: 'http://localhost:5000/',
   ));
 }

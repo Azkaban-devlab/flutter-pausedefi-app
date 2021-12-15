@@ -2,6 +2,7 @@ import 'package:app/application/injections/injector.dart';
 import 'package:app/application/kernel/app_helpers.dart';
 import 'package:app/domain/communication/states/auth.state.dart';
 import 'package:app/domain/data/models/user.model.dart';
+import 'package:app/domain/data/resources/http/dto/requests/auth/login.dto.dart';
 import 'package:app/domain/data/resources/http/dto/responses/auth/login.dto.dart';
 import 'package:app/domain/data/resources/http/endpoints/auth.endpoint.dart';
 import 'package:app/domain/data/resources/http/endpoints/user.endpoint.dart';
@@ -74,27 +75,18 @@ class AuthenticationService {
       BuildContext context, AuthenticationData data) async {
     DialogService.showLoadingDialog(context);
     try {
-      final User user = User();
-      user.email = data.email;
-      user.firstName = data.email;
-      await authDAO.saveUser(user);
-      await reset();
+      final LoginResponseDTO response = await authEndpoint
+          .login(LoginRequestDTO(email: data.email, password: data.password));
+      await _processAuthentication(
+        response.accessToken!,
+      );
     } catch (e) {
-      // Beware. This just example. In real you should not emitted for every kind of error.
+      //
     }
-    // try {
-    //   final LoginResponseDTO response = await authEndpoint
-    //       .login(LoginRequestDTO(email: data.email, password: data.password));
-    //   await _processAuthentication(
-    //     response.accessToken!,
-    //     response.refreshToken!,
-    //     response.expriresIn!,
-    //   );
-    // } catch (e) {
-    //   //
-    // }
     DialogService.closeLoadingDialog(context);
-    NavigationHelper.navigateToHome(context);
+    if (await reload()) {
+      NavigationHelper.navigateToHome(context);
+    }
   }
 
   ///
@@ -148,6 +140,7 @@ class AuthenticationService {
         final User? data = response.data<User>();
         if (data != null) {
           authState.setUser(data);
+          authDAO.saveUser(data);
           return true;
         }
       } catch (e) {
@@ -160,7 +153,7 @@ class AuthenticationService {
   }
 
   /// refresh user tokens
-  Future<bool> refreshToken() async {
+  /*Future<bool> refreshToken() async {
     final String? refreshToken = await authDAO.getRefreshToken();
     if (refreshToken != null) {
       try {
@@ -175,7 +168,7 @@ class AuthenticationService {
       }
     }
     return false;
-  }
+  }*/
 
   void _checkRefreshToken() async {
     try {
@@ -186,7 +179,7 @@ class AuthenticationService {
                   .add(const Duration(hours: 1))
                   .millisecondsSinceEpoch)) {
         // the tokens will expire in less than 1 hour so we try to refresh them
-        refreshToken();
+        // refreshToken();
       }
     } catch (e) {
       //
@@ -206,11 +199,11 @@ class AuthenticationService {
     return checked;
   }
 
-  Future<bool> _processAuthentication(
-      String accessToken, String refreshToken, int expiresIn) async {
+  Future<bool> _processAuthentication(String accessToken,
+      {String? refreshToken, int? expiresIn}) async {
     try {
-      authDAO.saveApiTokens(accessToken, refreshToken,
-          DateTime.now().millisecondsSinceEpoch + expiresIn);
+      authDAO.saveApiTokens(
+          accessToken); //refreshToken, DateTime.now().millisecondsSinceEpoch + expiresIn);
       await reset();
       return await reload();
     } catch (e) {

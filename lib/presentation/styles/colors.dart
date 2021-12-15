@@ -87,8 +87,8 @@ class AppColors {
   static final ThemedColor buttonColor = onBackgroundColor;
   static final ThemedColor iconColor = onBackgroundColor;
 
-  static const Color primaryColor = Color(0xFFe73064);
-  static const Color primaryVariantColor = Color(0xFFC7093F);
+  static const Color primaryColor = Color(0xFF5E79CC);
+  static const Color primaryVariantColor = Color(0xFFFCDA76);
   static const Color onPrimaryColor = Color(0xFFFFFFFF);
   static const Color onPrimaryVariantColor = Color(0xFFFFFFFF);
 
