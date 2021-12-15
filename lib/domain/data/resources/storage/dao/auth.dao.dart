@@ -82,18 +82,18 @@ class AuthDAO extends DAO {
   /// Check if the api tokens were saved
   ///
   Future<bool> hasApiTokens() async {
-    return await storage.exists(getKey(_accessTokenKey)) &&
-        await storage.exists(getKey(_refreshTokenKey));
+    return await storage.exists(getKey(
+        _accessTokenKey)); //&& await storage.exists(getKey(_refreshTokenKey));
   }
 
   ///
   /// Save Api Tokens
   ///
-  Future<void> saveApiTokens(
-      String? accessToken, String? refreshToken, int? expiresTimestamp) async {
+  Future<void> saveApiTokens(String? accessToken,
+      {String? refreshToken, int? expiresTimestamp}) async {
     await storage.save(getKey(_accessTokenKey), accessToken);
-    await storage.save(getKey(_refreshTokenKey), refreshToken);
-    await storage.save(getKey(_expiresTimestampKey), expiresTimestamp);
+    //await storage.save(getKey(_refreshTokenKey), refreshToken);
+    //await storage.save(getKey(_expiresTimestampKey), expiresTimestamp);
   }
 
   ///

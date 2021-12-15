@@ -22,12 +22,20 @@ abstract class UserEndpoint {
   }
 
   /// Authentication
-  @GET('/users/me')
+  @GET('/api/users/me')
   @Extra(<String, Object>{
     DioClient.extraDataAutenticateKey: true,
     DioClient.extraDataRefreskTokenNotNeedKey: true
   })
   Future<DataResponse> me();
+
+  /// Authentication
+  @GET('/api/users/me/rooms')
+  @Extra(<String, Object>{
+    DioClient.extraDataAutenticateKey: true,
+    DioClient.extraDataRefreskTokenNotNeedKey: true
+  })
+  Future<DataResponse> myRooms();
 
   /// Authentication
   @POST('/users/me')

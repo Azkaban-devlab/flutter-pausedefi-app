@@ -50,7 +50,7 @@ class RefreshTokenInterceptor extends InterceptorsWrapper
       return false;
     }
     try {
-      final bool succeed = await authenticationService.refreshToken();
+      final bool succeed = false; //await authenticationService.refreshToken();
       if (!succeed) {
         _emitLogOutEvent();
       }
