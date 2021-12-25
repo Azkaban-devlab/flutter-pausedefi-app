@@ -172,13 +172,12 @@ class FormInput extends StatelessWidget {
           suffixStyle: suffixStyle,
           hintText: hintText,
           hintStyle: styleOfHint,
-          prefixIconConstraints: const BoxConstraints(maxHeight: 48),
-          contentPadding: borderType == FormInputBorderType.outline
-              ? Spacing.textfieldOutlineContentPadding
-              : Spacing.textfieldUnderlineContentPadding,
+          prefixIconConstraints: const BoxConstraints(maxHeight: 40),
+          contentPadding:
+              const EdgeInsets.symmetric(horizontal: 10, vertical: 12),
           labelText: labelText,
           labelStyle: styleOfLabel,
-          suffixIconConstraints: const BoxConstraints(maxHeight: 48),
+          suffixIconConstraints: const BoxConstraints(maxHeight: 40),
           fillColor: bgColor,
           filled: bgColor != Colors.transparent,
           focusedBorder: _buildBorder(

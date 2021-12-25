@@ -18,5 +18,6 @@ abstract class InjecorModule {
   ///
   /// Allow to inject [AppRouter]
   ///
-  AppRouter get appRouter => AppRouter(authGuard: AuthGuard());
+  AppRouter get appRouter =>
+      AppRouter(authGuard: AuthGuard(), roomGuard: RoomGuard());
 }

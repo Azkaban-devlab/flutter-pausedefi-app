@@ -33,6 +33,23 @@ class _AuthEndpoint implements AuthEndpoint {
   }
 
   @override
+  Future<LoginResponseDTO> register(dto) async {
+    const _extra = <String, dynamic>{'authenticate': false};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    _data.addAll(dto.toJson());
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<LoginResponseDTO>(
+            Options(method: 'POST', headers: _headers, extra: _extra)
+                .compose(_dio.options, '/auth/register',
+                    queryParameters: queryParameters, data: _data)
+                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = JsonMapper.fromMap<LoginResponseDTO>(_result.data!)!;
+    return value;
+  }
+
+  @override
   Future<RecoverResponseDTO> recover(dto) async {
     const _extra = <String, dynamic>{'authenticate': false};
     final queryParameters = <String, dynamic>{};

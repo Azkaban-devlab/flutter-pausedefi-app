@@ -5,9 +5,11 @@ import 'package:app/domain/data/models/room.model.dart';
 import 'package:app/domain/data/resources/http/dto/responses/room/access.room.dto.dart';
 import 'package:app/domain/data/resources/http/endpoints/room.endpoint.dart';
 import 'package:app/domain/data/resources/http/models/data.response.dart';
+import 'package:app/domain/services/helpers/navigation.helper.dart';
+import 'package:app/domain/services/injected/room.service.dart';
 import 'package:app/domain/services/ui/dialog.service.dart';
 import 'package:app/infrastructure/abstracts/lockable_view_model.abstract.dart';
-import 'package:app/presentation/views/screens/main/pages/challenge/challenge.creation.screen.dart';
+import 'package:app/presentation/views/screens/room/pages/challenge/challenge.creation.screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -18,10 +20,9 @@ class RoomCreationViewModel extends LockableViewModel {
   ///
   /// Constructor
   ///
-  RoomCreationViewModel(this._roomEndpoint);
+  RoomCreationViewModel();
 
   Locker creationRoomLocker = Locker();
-  final RoomEndpoint _roomEndpoint;
 
   PageController pageController = PageController();
   TextEditingController roomNameController = TextEditingController();
@@ -35,6 +36,8 @@ class RoomCreationViewModel extends LockableViewModel {
 
   Timer? _timer;
 
+  final GlobalKey<FormState> formKey = GlobalKey();
+
   ///
   /// Build this ViewModel
   ///
@@ -42,7 +45,7 @@ class RoomCreationViewModel extends LockableViewModel {
       {required Widget Function(BuildContext context, Widget? child)? builder,
       Widget? child}) {
     return ChangeNotifierProvider<RoomCreationViewModel>(
-      create: (BuildContext context) => RoomCreationViewModel(RoomEndpoint()),
+      create: (BuildContext context) => RoomCreationViewModel(),
       builder: builder,
       lazy: false,
       child: child,
@@ -58,32 +61,32 @@ class RoomCreationViewModel extends LockableViewModel {
   }
 
   void initRoom() {
-    if (roomNameController.text.isNotEmpty) {
+    if (formKey.currentState!.validate()) {
       newRoom.name = roomNameController.text;
-      notifyListeners();
+      //notifyListeners();
       pageController.nextPage(
-          duration: const Duration(milliseconds: 3), curve: Curves.bounceIn);
+          duration: const Duration(seconds: 1), curve: Curves.ease);
     } // TODO handle this with a formkey
   }
 
   void submitRoom(BuildContext context) async {
-    DialogService.showLoadingDialog(context);
     newRoom.challenges = challenges;
     try {
-      final AccessRoomDTO response = await _roomEndpoint.createRoom(newRoom);
-      accessCode = response.accessCode!;
+      accessCode = await RoomService.injected().createRoom(context, newRoom);
     } catch (e) {
       //
-      print(e);
     }
-    DialogService.closeLoadingDialog(context);
     if (accessCode != null) {
       pageController.nextPage(
-          duration: const Duration(milliseconds: 3), curve: Curves.bounceIn);
+          duration: const Duration(seconds: 1), curve: Curves.ease);
     } else {
       DialogService.showAlert(
           context, 'Petite erreur', "Votre room n'a pu être créée");
     }
+  }
+
+  void accessRoom(BuildContext context) async {
+    NavigationHelper.navigateToRoom(context);
   }
 
   void addEditChallenge(BuildContext context, {Challenge? challenge}) async {
@@ -114,13 +117,13 @@ class RoomCreationViewModel extends LockableViewModel {
         break;
       case 1:
         pageController.previousPage(
-            duration: const Duration(milliseconds: 3), curve: Curves.bounceIn);
+            duration: const Duration(seconds: 1), curve: Curves.ease);
         break;
       case 2:
-        pageController.previousPage(
-            duration: const Duration(milliseconds: 3), curve: Curves.bounceIn);
+        Navigator.pop(context, true);
         break;
       default:
+        Navigator.pop(context);
         break;
     }
   }
@@ -132,7 +135,7 @@ class RoomCreationViewModel extends LockableViewModel {
     bool isSecondTransition =
         (index == 1 && currentIndex > index) || index == 2;
     _timer = Timer.periodic(
-      const Duration(milliseconds: 3),
+      const Duration(milliseconds: 3, microseconds: 1000),
       (Timer timer) {
         if (index == 1 && currentIndex > index) {
           secondTransition = 1 - (timer.tick.toDouble() / 60);

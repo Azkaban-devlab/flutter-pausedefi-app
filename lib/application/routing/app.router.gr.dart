@@ -8,146 +8,198 @@
 // AutoRouteGenerator
 // **************************************************************************
 
-import 'package:app/application/routing/router_builders.dart' as _i8;
-import 'package:app/application/routing/router_guards.dart' as _i7;
+import 'package:app/application/routing/router_builders.dart' as _i14;
+import 'package:app/application/routing/router_guards.dart' as _i13;
 import 'package:app/presentation/views/screens/auth/auth.screen.dart' as _i2;
 import 'package:app/presentation/views/screens/main/index.screen.dart' as _i1;
-import 'package:app/presentation/views/screens/main/pages/home/index.screen.dart'
-    as _i4;
-import 'package:app/presentation/views/widgets/custom/component_scaffold.dart'
+import 'package:app/presentation/views/screens/main/pages/challenge/index.screen.dart'
+    as _i6;
+import 'package:app/presentation/views/screens/main/pages/feed/index.screen.dart'
+    as _i5;
+import 'package:app/presentation/views/screens/main/pages/notification/index.screen.dart'
+    as _i8;
+import 'package:app/presentation/views/screens/main/pages/ranking/index.screen.dart'
+    as _i7;
+import 'package:app/presentation/views/screens/room/pages/home/index.screen.dart'
     as _i3;
-import 'package:auto_route/auto_route.dart' as _i5;
-import 'package:flutter/material.dart' as _i6;
+import 'package:app/presentation/views/screens/room/pages/home/room/room.creation.screen.dart'
+    as _i9;
+import 'package:app/presentation/views/screens/room/pages/home/room/room.join.screen.dart'
+    as _i10;
+import 'package:app/presentation/views/widgets/custom/component_scaffold.dart'
+    as _i4;
+import 'package:auto_route/auto_route.dart' as _i11;
+import 'package:flutter/material.dart' as _i12;
 
-class AppRouter extends _i5.RootStackRouter {
+class AppRouter extends _i11.RootStackRouter {
   AppRouter(
-      {_i6.GlobalKey<_i6.NavigatorState>? navigatorKey,
-      required this.authGuard})
+      {_i12.GlobalKey<_i12.NavigatorState>? navigatorKey,
+      required this.authGuard,
+      required this.roomGuard})
       : super(navigatorKey);
 
-  final _i7.AuthGuard authGuard;
+  final _i13.AuthGuard authGuard;
+
+  final _i13.RoomGuard roomGuard;
 
   @override
-  final Map<String, _i5.PageFactory> pagesMap = {
+  final Map<String, _i11.PageFactory> pagesMap = {
     MainScreenRoute.name: (routeData) {
-      return _i5.AdaptivePage<dynamic>(
+      return _i11.AdaptivePage<dynamic>(
           routeData: routeData, child: const _i1.MainScreen());
     },
     AuthScreenRoute.name: (routeData) {
       final args = routeData.argsAs<AuthScreenRouteArgs>(
           orElse: () => const AuthScreenRouteArgs());
-      return _i5.AdaptivePage<dynamic>(
+      return _i11.AdaptivePage<dynamic>(
           routeData: routeData,
           child: _i2.AuthScreen(
               key: args.key, onAuthenticated: args.onAuthenticated));
     },
+    RoomHomeScreenRoute.name: (routeData) {
+      return _i11.AdaptivePage<dynamic>(
+          routeData: routeData, child: const _i3.RoomHomeScreen());
+    },
     ModalScreenRoute.name: (routeData) {
-      return _i5.CustomPage<dynamic>(
+      return _i11.CustomPage<dynamic>(
           routeData: routeData,
-          child: const _i3.ModalScreen(),
+          child: const _i4.ModalScreen(),
           customRouteBuilder:
-              _i8.RouterBuilders.cupertinoModalSheetStyleBuilder,
+              _i14.RouterBuilders.cupertinoModalSheetStyleBuilder,
           opaque: true,
           barrierDismissible: true);
     },
     DialogScreenRoute.name: (routeData) {
-      return _i5.CustomPage<dynamic>(
+      return _i11.CustomPage<dynamic>(
           routeData: routeData,
-          child: const _i3.DialogScreen(),
-          customRouteBuilder: _i8.RouterBuilders.dialogStyleBuilder,
+          child: const _i4.DialogScreen(),
+          customRouteBuilder: _i14.RouterBuilders.dialogStyleBuilder,
           opaque: true,
           barrierDismissible: true);
     },
     NestedModalScreenRoute.name: (routeData) {
-      return _i5.CustomPage<dynamic>(
+      return _i11.CustomPage<dynamic>(
           routeData: routeData,
-          child: const _i3.NestedModalScreen(),
+          child: const _i4.NestedModalScreen(),
           customRouteBuilder:
-              _i8.RouterBuilders.cupertinoModalSheetStyleBuilder,
+              _i14.RouterBuilders.cupertinoModalSheetStyleBuilder,
           opaque: true,
           barrierDismissible: true);
     },
     NestedDialogScreenRoute.name: (routeData) {
-      return _i5.CustomPage<dynamic>(
+      return _i11.CustomPage<dynamic>(
           routeData: routeData,
-          child: const _i3.NestedModalScreen(),
-          customRouteBuilder: _i8.RouterBuilders.dialogStyleBuilder,
+          child: const _i4.NestedModalScreen(),
+          customRouteBuilder: _i14.RouterBuilders.dialogStyleBuilder,
           opaque: true,
           barrierDismissible: true);
     },
-    HomeScreenRoute.name: (routeData) {
-      return _i5.AdaptivePage<dynamic>(
-          routeData: routeData, child: const _i4.HomeScreen());
+    FeedScreenRoute.name: (routeData) {
+      return _i11.AdaptivePage<dynamic>(
+          routeData: routeData, child: const _i5.FeedScreen());
+    },
+    ChallengeMainScreenRoute.name: (routeData) {
+      return _i11.AdaptivePage<dynamic>(
+          routeData: routeData, child: const _i6.ChallengeMainScreen());
+    },
+    RankingScreenRoute.name: (routeData) {
+      return _i11.AdaptivePage<dynamic>(
+          routeData: routeData, child: const _i7.RankingScreen());
+    },
+    NotificationScreenRoute.name: (routeData) {
+      return _i11.AdaptivePage<dynamic>(
+          routeData: routeData, child: const _i8.NotificationScreen());
+    },
+    RoomCreationScreenRoute.name: (routeData) {
+      return _i11.AdaptivePage<dynamic>(
+          routeData: routeData, child: const _i9.RoomCreationScreen());
+    },
+    RoomJoinScreenRoute.name: (routeData) {
+      return _i11.AdaptivePage<dynamic>(
+          routeData: routeData, child: const _i10.RoomJoinScreen());
     },
     NestedModalScreenFirstRoute.name: (routeData) {
-      return _i5.CupertinoPageX<dynamic>(
-          routeData: routeData, child: const _i3.NestedModalScreenFirst());
+      return _i11.CupertinoPageX<dynamic>(
+          routeData: routeData, child: const _i4.NestedModalScreenFirst());
     },
     NestedModalScreenSecondRoute.name: (routeData) {
-      return _i5.CupertinoPageX<dynamic>(
-          routeData: routeData, child: const _i3.NestedModalScreenSecond());
+      return _i11.CupertinoPageX<dynamic>(
+          routeData: routeData, child: const _i4.NestedModalScreenSecond());
     },
     NestedDialogScreenFirstRoute.name: (routeData) {
-      return _i5.CupertinoPageX<dynamic>(
-          routeData: routeData, child: const _i3.NestedModalScreenFirst());
+      return _i11.CupertinoPageX<dynamic>(
+          routeData: routeData, child: const _i4.NestedModalScreenFirst());
     },
     NestedDialogScreenSecondRoute.name: (routeData) {
-      return _i5.CupertinoPageX<dynamic>(
-          routeData: routeData, child: const _i3.NestedModalScreenSecond());
+      return _i11.CupertinoPageX<dynamic>(
+          routeData: routeData, child: const _i4.NestedModalScreenSecond());
     }
   };
 
   @override
-  List<_i5.RouteConfig> get routes => [
-        _i5.RouteConfig(MainScreenRoute.name, path: '/', guards: [
-          authGuard
+  List<_i11.RouteConfig> get routes => [
+        _i11.RouteConfig(MainScreenRoute.name, path: '/', guards: [
+          authGuard,
+          roomGuard
         ], children: [
-          _i5.RouteConfig(HomeScreenRoute.name,
+          _i11.RouteConfig(FeedScreenRoute.name,
+              path: '', parent: MainScreenRoute.name),
+          _i11.RouteConfig(ChallengeMainScreenRoute.name,
+              path: '', parent: MainScreenRoute.name),
+          _i11.RouteConfig(RankingScreenRoute.name,
+              path: '', parent: MainScreenRoute.name),
+          _i11.RouteConfig(NotificationScreenRoute.name,
               path: '', parent: MainScreenRoute.name)
         ]),
-        _i5.RouteConfig(AuthScreenRoute.name, path: '/login'),
-        _i5.RouteConfig(ModalScreenRoute.name, path: '/modal'),
-        _i5.RouteConfig(DialogScreenRoute.name, path: '/dialog'),
-        _i5.RouteConfig(NestedModalScreenRoute.name,
+        _i11.RouteConfig(AuthScreenRoute.name, path: '/login'),
+        _i11.RouteConfig(RoomHomeScreenRoute.name, path: '/home', children: [
+          _i11.RouteConfig(RoomCreationScreenRoute.name,
+              path: '', parent: RoomHomeScreenRoute.name),
+          _i11.RouteConfig(RoomJoinScreenRoute.name,
+              path: '', parent: RoomHomeScreenRoute.name)
+        ]),
+        _i11.RouteConfig(ModalScreenRoute.name, path: '/modal'),
+        _i11.RouteConfig(DialogScreenRoute.name, path: '/dialog'),
+        _i11.RouteConfig(NestedModalScreenRoute.name,
             path: '/nested-modals',
             children: [
-              _i5.RouteConfig('#redirect',
+              _i11.RouteConfig('#redirect',
                   path: '',
                   parent: NestedModalScreenRoute.name,
                   redirectTo: 'first',
                   fullMatch: true),
-              _i5.RouteConfig(NestedModalScreenFirstRoute.name,
+              _i11.RouteConfig(NestedModalScreenFirstRoute.name,
                   path: 'first', parent: NestedModalScreenRoute.name),
-              _i5.RouteConfig(NestedModalScreenSecondRoute.name,
+              _i11.RouteConfig(NestedModalScreenSecondRoute.name,
                   path: 'second', parent: NestedModalScreenRoute.name)
             ]),
-        _i5.RouteConfig(NestedDialogScreenRoute.name,
+        _i11.RouteConfig(NestedDialogScreenRoute.name,
             path: '/nested-dialogs',
             children: [
-              _i5.RouteConfig('#redirect',
+              _i11.RouteConfig('#redirect',
                   path: '',
                   parent: NestedDialogScreenRoute.name,
                   redirectTo: 'first',
                   fullMatch: true),
-              _i5.RouteConfig(NestedDialogScreenFirstRoute.name,
+              _i11.RouteConfig(NestedDialogScreenFirstRoute.name,
                   path: 'first', parent: NestedDialogScreenRoute.name),
-              _i5.RouteConfig(NestedDialogScreenSecondRoute.name,
+              _i11.RouteConfig(NestedDialogScreenSecondRoute.name,
                   path: 'second', parent: NestedDialogScreenRoute.name)
             ])
       ];
 }
 
 /// generated route for [_i1.MainScreen]
-class MainScreenRoute extends _i5.PageRouteInfo<void> {
-  const MainScreenRoute({List<_i5.PageRouteInfo>? children})
+class MainScreenRoute extends _i11.PageRouteInfo<void> {
+  const MainScreenRoute({List<_i11.PageRouteInfo>? children})
       : super(name, path: '/', initialChildren: children);
 
   static const String name = 'MainScreenRoute';
 }
 
 /// generated route for [_i2.AuthScreen]
-class AuthScreenRoute extends _i5.PageRouteInfo<AuthScreenRouteArgs> {
-  AuthScreenRoute({_i6.Key? key, void Function()? onAuthenticated})
+class AuthScreenRoute extends _i11.PageRouteInfo<AuthScreenRouteArgs> {
+  AuthScreenRoute({_i12.Key? key, void Function()? onAuthenticated})
       : super(name,
             path: '/login',
             args: AuthScreenRouteArgs(
@@ -159,7 +211,7 @@ class AuthScreenRoute extends _i5.PageRouteInfo<AuthScreenRouteArgs> {
 class AuthScreenRouteArgs {
   const AuthScreenRouteArgs({this.key, this.onAuthenticated});
 
-  final _i6.Key? key;
+  final _i12.Key? key;
 
   final void Function()? onAuthenticated;
 
@@ -169,66 +221,109 @@ class AuthScreenRouteArgs {
   }
 }
 
-/// generated route for [_i3.ModalScreen]
-class ModalScreenRoute extends _i5.PageRouteInfo<void> {
+/// generated route for [_i3.RoomHomeScreen]
+class RoomHomeScreenRoute extends _i11.PageRouteInfo<void> {
+  const RoomHomeScreenRoute({List<_i11.PageRouteInfo>? children})
+      : super(name, path: '/home', initialChildren: children);
+
+  static const String name = 'RoomHomeScreenRoute';
+}
+
+/// generated route for [_i4.ModalScreen]
+class ModalScreenRoute extends _i11.PageRouteInfo<void> {
   const ModalScreenRoute() : super(name, path: '/modal');
 
   static const String name = 'ModalScreenRoute';
 }
 
-/// generated route for [_i3.DialogScreen]
-class DialogScreenRoute extends _i5.PageRouteInfo<void> {
+/// generated route for [_i4.DialogScreen]
+class DialogScreenRoute extends _i11.PageRouteInfo<void> {
   const DialogScreenRoute() : super(name, path: '/dialog');
 
   static const String name = 'DialogScreenRoute';
 }
 
-/// generated route for [_i3.NestedModalScreen]
-class NestedModalScreenRoute extends _i5.PageRouteInfo<void> {
-  const NestedModalScreenRoute({List<_i5.PageRouteInfo>? children})
+/// generated route for [_i4.NestedModalScreen]
+class NestedModalScreenRoute extends _i11.PageRouteInfo<void> {
+  const NestedModalScreenRoute({List<_i11.PageRouteInfo>? children})
       : super(name, path: '/nested-modals', initialChildren: children);
 
   static const String name = 'NestedModalScreenRoute';
 }
 
-/// generated route for [_i3.NestedModalScreen]
-class NestedDialogScreenRoute extends _i5.PageRouteInfo<void> {
-  const NestedDialogScreenRoute({List<_i5.PageRouteInfo>? children})
+/// generated route for [_i4.NestedModalScreen]
+class NestedDialogScreenRoute extends _i11.PageRouteInfo<void> {
+  const NestedDialogScreenRoute({List<_i11.PageRouteInfo>? children})
       : super(name, path: '/nested-dialogs', initialChildren: children);
 
   static const String name = 'NestedDialogScreenRoute';
 }
 
-/// generated route for [_i4.HomeScreen]
-class HomeScreenRoute extends _i5.PageRouteInfo<void> {
-  const HomeScreenRoute() : super(name, path: '');
+/// generated route for [_i5.FeedScreen]
+class FeedScreenRoute extends _i11.PageRouteInfo<void> {
+  const FeedScreenRoute() : super(name, path: '');
 
-  static const String name = 'HomeScreenRoute';
+  static const String name = 'FeedScreenRoute';
 }
 
-/// generated route for [_i3.NestedModalScreenFirst]
-class NestedModalScreenFirstRoute extends _i5.PageRouteInfo<void> {
+/// generated route for [_i6.ChallengeMainScreen]
+class ChallengeMainScreenRoute extends _i11.PageRouteInfo<void> {
+  const ChallengeMainScreenRoute() : super(name, path: '');
+
+  static const String name = 'ChallengeMainScreenRoute';
+}
+
+/// generated route for [_i7.RankingScreen]
+class RankingScreenRoute extends _i11.PageRouteInfo<void> {
+  const RankingScreenRoute() : super(name, path: '');
+
+  static const String name = 'RankingScreenRoute';
+}
+
+/// generated route for [_i8.NotificationScreen]
+class NotificationScreenRoute extends _i11.PageRouteInfo<void> {
+  const NotificationScreenRoute() : super(name, path: '');
+
+  static const String name = 'NotificationScreenRoute';
+}
+
+/// generated route for [_i9.RoomCreationScreen]
+class RoomCreationScreenRoute extends _i11.PageRouteInfo<void> {
+  const RoomCreationScreenRoute() : super(name, path: '');
+
+  static const String name = 'RoomCreationScreenRoute';
+}
+
+/// generated route for [_i10.RoomJoinScreen]
+class RoomJoinScreenRoute extends _i11.PageRouteInfo<void> {
+  const RoomJoinScreenRoute() : super(name, path: '');
+
+  static const String name = 'RoomJoinScreenRoute';
+}
+
+/// generated route for [_i4.NestedModalScreenFirst]
+class NestedModalScreenFirstRoute extends _i11.PageRouteInfo<void> {
   const NestedModalScreenFirstRoute() : super(name, path: 'first');
 
   static const String name = 'NestedModalScreenFirstRoute';
 }
 
-/// generated route for [_i3.NestedModalScreenSecond]
-class NestedModalScreenSecondRoute extends _i5.PageRouteInfo<void> {
+/// generated route for [_i4.NestedModalScreenSecond]
+class NestedModalScreenSecondRoute extends _i11.PageRouteInfo<void> {
   const NestedModalScreenSecondRoute() : super(name, path: 'second');
 
   static const String name = 'NestedModalScreenSecondRoute';
 }
 
-/// generated route for [_i3.NestedModalScreenFirst]
-class NestedDialogScreenFirstRoute extends _i5.PageRouteInfo<void> {
+/// generated route for [_i4.NestedModalScreenFirst]
+class NestedDialogScreenFirstRoute extends _i11.PageRouteInfo<void> {
   const NestedDialogScreenFirstRoute() : super(name, path: 'first');
 
   static const String name = 'NestedDialogScreenFirstRoute';
 }
 
-/// generated route for [_i3.NestedModalScreenSecond]
-class NestedDialogScreenSecondRoute extends _i5.PageRouteInfo<void> {
+/// generated route for [_i4.NestedModalScreenSecond]
+class NestedDialogScreenSecondRoute extends _i11.PageRouteInfo<void> {
   const NestedDialogScreenSecondRoute() : super(name, path: 'second');
 
   static const String name = 'NestedDialogScreenSecondRoute';

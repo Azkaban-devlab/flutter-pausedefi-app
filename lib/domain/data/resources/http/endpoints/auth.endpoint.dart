@@ -29,6 +29,11 @@ abstract class AuthEndpoint {
   @Extra(<String, Object>{DioClient.extraDataAutenticateKey: false})
   Future<LoginResponseDTO> login(@Body() LoginRequestDTO dto);
 
+  /// Authentication
+  @POST('/auth/register')
+  @Extra(<String, Object>{DioClient.extraDataAutenticateKey: false})
+  Future<LoginResponseDTO> register(@Body() LoginRequestDTO dto);
+
   /// Recover
   @POST('/auth/recover')
   @Extra(<String, Object>{DioClient.extraDataAutenticateKey: false})

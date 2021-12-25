@@ -7,11 +7,11 @@ import 'index.mobile.dart';
 ///
 /// [HomeCommonScreen]
 ///
-class HomeScreen extends StatelessWidget {
+class RoomHomeScreen extends StatelessWidget {
   ///
   /// Constructor
   ///
-  const HomeScreen({Key? key}) : super(key: key);
+  const RoomHomeScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

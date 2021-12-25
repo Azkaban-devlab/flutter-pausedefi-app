@@ -1,5 +1,4 @@
 import 'package:app/application/injections/injector.dart';
-import 'package:app/application/kernel/app_helpers.dart';
 import 'package:app/domain/communication/states/auth.state.dart';
 import 'package:app/domain/data/models/user.model.dart';
 import 'package:app/domain/data/resources/http/dto/requests/auth/login.dto.dart';
@@ -77,6 +76,30 @@ class AuthenticationService {
     try {
       final LoginResponseDTO response = await authEndpoint
           .login(LoginRequestDTO(email: data.email, password: data.password));
+      await _processAuthentication(
+        response.accessToken!,
+      );
+    } catch (e) {
+      //
+    }
+    DialogService.closeLoadingDialog(context);
+    if (await reload()) {
+      NavigationHelper.navigateToHome(context);
+    }
+  }
+
+  ///
+  /// Authenticate
+  ///
+  Future<void> register(BuildContext context, RegisterData data) async {
+    DialogService.showLoadingDialog(context);
+    try {
+      final LoginResponseDTO response = await authEndpoint.register(
+          LoginRequestDTO(
+              email: data.email,
+              password: data.password,
+              firstName: data.firstName,
+              lastName: data.lastName));
       await _processAuthentication(
         response.accessToken!,
       );
@@ -224,6 +247,29 @@ class AuthenticationData {
 
   /// Constructor
   AuthenticationData({
+    required this.email,
+    required this.password,
+  });
+}
+
+/// [RegisterData]
+class RegisterData {
+  /// first_name
+  final String firstName;
+
+  /// last_name
+  final String lastName;
+
+  /// email
+  final String email;
+
+  /// password
+  final String password;
+
+  /// Constructor
+  RegisterData({
+    required this.firstName,
+    required this.lastName,
     required this.email,
     required this.password,
   });

@@ -36,7 +36,7 @@ class DioClient extends DioPlatform {
     ..baseUrl = appConfig().serverUrl!
     ..connectTimeout = 30000
     ..maxRedirects = 5
-    ..contentType = Headers.formUrlEncodedContentType;
+    ..contentType = Headers.jsonContentType;
 
   ///
   /// Constructor

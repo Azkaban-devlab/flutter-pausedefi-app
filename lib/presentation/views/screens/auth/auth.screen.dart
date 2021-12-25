@@ -54,7 +54,7 @@ class _AuthBody extends StatelessWidget {
         height: 25,
       ),
       AnimatedToggle(
-          values: ['Se connecter', "S'inscrire"],
+          values: const ['Se connecter', "S'inscrire"],
           onToggleCallback: (dynamic newValue) => null),
       const SizedBox(
         height: 35,
@@ -63,7 +63,8 @@ class _AuthBody extends StatelessWidget {
           child: Container(
               color: AppColors.primaryColor,
               padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 40),
-              child: Form(
+              child: SingleChildScrollView(
+                  child: Form(
                 key: model.formKey,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -98,21 +99,18 @@ class _AuthBody extends StatelessWidget {
                                         variantType: TextVariantType.caption,
                                         color: Colors.white,
                                       )),
-                                  SizedBox(
-                                      height: 40,
-                                      child: FormInput(
-                                        hintText: 'Prénom',
-                                        //controller: model.firstNameController,
-                                        borderType: FormInputBorderType.outline,
-                                        inputBorder: OutlineInputBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(20.0),
-                                        ),
-                                        textInputAction: TextInputAction.next,
-                                        validator: (String? v) =>
-                                            ValidatorHelper.validateRequired(v)
-                                                .message,
-                                      )),
+                                  FormInput(
+                                    hintText: 'Prénom',
+                                    controller: model.firstNameController,
+                                    borderType: FormInputBorderType.outline,
+                                    inputBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(20.0),
+                                    ),
+                                    textInputAction: TextInputAction.next,
+                                    validator: (String? v) =>
+                                        ValidatorHelper.validateRequired(v)
+                                            .message,
+                                  ),
                                 ],
                               )),
                               const SizedBox(
@@ -130,21 +128,18 @@ class _AuthBody extends StatelessWidget {
                                         variantType: TextVariantType.caption,
                                         color: Colors.white,
                                       )),
-                                  SizedBox(
-                                      height: 40,
-                                      child: FormInput(
-                                        hintText: 'Nom',
-                                        //controller: model.lastNameController,
-                                        borderType: FormInputBorderType.outline,
-                                        inputBorder: OutlineInputBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(20.0),
-                                        ),
-                                        textInputAction: TextInputAction.next,
-                                        validator: (String? v) =>
-                                            ValidatorHelper.validateRequired(v)
-                                                .message,
-                                      )),
+                                  FormInput(
+                                    hintText: 'Nom',
+                                    controller: model.lastNameController,
+                                    borderType: FormInputBorderType.outline,
+                                    inputBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(20.0),
+                                    ),
+                                    textInputAction: TextInputAction.next,
+                                    validator: (String? v) =>
+                                        ValidatorHelper.validateRequired(v)
+                                            .message,
+                                  ),
                                 ],
                               ))
                             ],
@@ -157,20 +152,18 @@ class _AuthBody extends StatelessWidget {
                           variantType: TextVariantType.caption,
                           color: Colors.white,
                         )),
-                    SizedBox(
-                        height: 40,
-                        child: FormInput(
-                          hintText: 'Email',
-                          controller: model.emailController,
-                          borderType: FormInputBorderType.outline,
-                          inputBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(20.0),
-                          ),
-                          keyboardType: TextInputType.emailAddress,
-                          textInputAction: TextInputAction.next,
-                          validator: (String? v) =>
-                              ValidatorHelper.validateEmail(v).message,
-                        )),
+                    FormInput(
+                      hintText: 'Email',
+                      controller: model.emailController,
+                      borderType: FormInputBorderType.outline,
+                      inputBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(20.0),
+                      ),
+                      keyboardType: TextInputType.emailAddress,
+                      textInputAction: TextInputAction.next,
+                      validator: (String? v) =>
+                          ValidatorHelper.validateEmail(v).message,
+                    ),
                     const SizedBox(
                       height: 20,
                     ),
@@ -181,29 +174,27 @@ class _AuthBody extends StatelessWidget {
                           variantType: TextVariantType.caption,
                           color: Colors.white,
                         )),
-                    SizedBox(
-                        height: 40,
-                        child: FormInput(
-                          hintText: 'Mot de passe',
-                          obscureText: !model.isPasswordVisible,
-                          controller: model.passwordController,
-                          borderType: FormInputBorderType.outline,
-                          inputBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(20.0),
-                          ),
-                          suffixIcon: IconButton(
-                            onPressed: () {
-                              model.updatePasswordEye();
-                            },
-                            color: CustomColors.greyColor,
-                            icon: Icon(model.isPasswordVisible
-                                ? Icons.visibility_off_outlined
-                                : Icons.visibility_outlined),
-                          ),
-                          validator: (String? v) =>
-                              ValidatorHelper.validatePassword(v, minLength: 0)
-                                  .message,
-                        )),
+                    FormInput(
+                      hintText: 'Mot de passe',
+                      obscureText: !model.isPasswordVisible,
+                      controller: model.passwordController,
+                      borderType: FormInputBorderType.outline,
+                      inputBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(20.0),
+                      ),
+                      suffixIcon: IconButton(
+                        onPressed: () {
+                          model.updatePasswordEye();
+                        },
+                        color: CustomColors.greyColor,
+                        icon: Icon(model.isPasswordVisible
+                            ? Icons.visibility_off_outlined
+                            : Icons.visibility_outlined),
+                      ),
+                      validator: (String? v) =>
+                          ValidatorHelper.validatePassword(v, minLength: 0)
+                              .message,
+                    ),
                     Visibility(
                         visible: !model.isLogin,
                         child: Column(
@@ -220,30 +211,29 @@ class _AuthBody extends StatelessWidget {
                                     variantType: TextVariantType.caption,
                                     color: Colors.white,
                                   )),
-                              SizedBox(
-                                  height: 40,
-                                  child: FormInput(
-                                    hintText: 'Confirmer le mot de passe',
-                                    obscureText: !model.isPasswordVisible,
-                                    //controller: model.confirmPasswordController,
-                                    borderType: FormInputBorderType.outline,
-                                    inputBorder: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(20.0),
-                                    ),
-                                    suffixIcon: IconButton(
-                                      onPressed: () {
-                                        model.updatePasswordEye();
-                                      },
-                                      color: CustomColors.greyColor,
-                                      icon: Icon(model.isPasswordVisible
-                                          ? Icons.visibility_off_outlined
-                                          : Icons.visibility_outlined),
-                                    ),
-                                    validator: (String? v) =>
-                                        ValidatorHelper.validatePassword(v,
-                                                minLength: 0)
-                                            .message,
-                                  )),
+                              FormInput(
+                                hintText: 'Confirmer le mot de passe',
+                                obscureText: !model.isPasswordVisible,
+                                controller: model.confirmPasswordController,
+                                borderType: FormInputBorderType.outline,
+                                inputBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(20.0),
+                                ),
+                                suffixIcon: IconButton(
+                                  onPressed: () {
+                                    model.updatePasswordEye();
+                                  },
+                                  color: CustomColors.greyColor,
+                                  icon: Icon(model.isPasswordVisible
+                                      ? Icons.visibility_off_outlined
+                                      : Icons.visibility_outlined),
+                                ),
+                                validator: (String? v) =>
+                                    ValidatorHelper.validateConfirmPassword(
+                                            v, model.passwordController.text,
+                                            minLength: 0)
+                                        .message,
+                              ),
                             ])),
                     const SizedBox(
                       height: 45,
@@ -273,7 +263,7 @@ class _AuthBody extends StatelessWidget {
                         onTap: () => model.handleLogin(context)),
                   ],
                 ),
-              ))),
+              )))),
     ]);
   }
 }

@@ -1,23 +1,16 @@
+import 'package:app/infrastructure/mixins/json_serializable.mixin.dart';
 import 'package:dart_json_mapper/dart_json_mapper.dart';
 
-///
-/// [AccessRoomResponseDTO] response
-///
 @jsonSerializable
 @Json(caseStyle: CaseStyle.snake)
-class AccessRoomResponseDTO {
+class AccessRoomRequestDTO with JsonSerializableMixin<AccessRoomRequestDTO> {
   ///
   /// accessCode
   ///
   String? accessCode;
 
   ///
-  /// id
-  ///
-  int? id;
-
-  ///
   /// Constructor
   ///
-  AccessRoomResponseDTO();
+  AccessRoomRequestDTO({this.accessCode});
 }

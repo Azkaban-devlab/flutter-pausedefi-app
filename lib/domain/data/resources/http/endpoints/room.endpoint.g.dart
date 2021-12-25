@@ -16,7 +16,7 @@ class _RoomEndpoint implements RoomEndpoint {
   String? baseUrl;
 
   @override
-  Future<AccessRoomDTO> createRoom(body) async {
+  Future<AccessRoomResponseDTO> createRoom(body) async {
     const _extra = <String, dynamic>{
       'authenticate': true,
       'refresh-token-not-need': true
@@ -26,12 +26,51 @@ class _RoomEndpoint implements RoomEndpoint {
     final _data = <String, dynamic>{};
     _data.addAll(body.toJson());
     final _result = await _dio.fetch<Map<String, dynamic>>(
-        _setStreamType<AccessRoomDTO>(
+        _setStreamType<AccessRoomResponseDTO>(
             Options(method: 'POST', headers: _headers, extra: _extra)
                 .compose(_dio.options, '/api/room/create',
                     queryParameters: queryParameters, data: _data)
                 .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    final value = JsonMapper.fromMap<AccessRoomDTO>(_result.data!)!;
+    final value = JsonMapper.fromMap<AccessRoomResponseDTO>(_result.data!)!;
+    return value;
+  }
+
+  @override
+  Future<DataResponse> getRoomById(id) async {
+    const _extra = <String, dynamic>{
+      'authenticate': true,
+      'refresh-token-not-need': true
+    };
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<DataResponse>(
+            Options(method: 'GET', headers: _headers, extra: _extra)
+                .compose(_dio.options, 'api/room/${id}',
+                    queryParameters: queryParameters, data: _data)
+                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = JsonMapper.fromMap<DataResponse>(_result.data!)!;
+    return value;
+  }
+
+  @override
+  Future<DataResponse> accessRoom(dto) async {
+    const _extra = <String, dynamic>{
+      'authenticate': true,
+      'refresh-token-not-need': true
+    };
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    _data.addAll(dto.toJson());
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<DataResponse>(
+            Options(method: 'POST', headers: _headers, extra: _extra)
+                .compose(_dio.options, 'api/room/access',
+                    queryParameters: queryParameters, data: _data)
+                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = JsonMapper.fromMap<DataResponse>(_result.data!)!;
     return value;
   }
 

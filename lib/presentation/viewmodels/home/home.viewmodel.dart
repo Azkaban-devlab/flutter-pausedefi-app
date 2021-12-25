@@ -1,7 +1,9 @@
 import 'package:app/domain/data/models/room.model.dart';
 import 'package:app/domain/data/resources/http/endpoints/user.endpoint.dart';
 import 'package:app/domain/data/resources/http/models/data.response.dart';
+import 'package:app/domain/services/injected/room.service.dart';
 import 'package:app/infrastructure/abstracts/lockable_view_model.abstract.dart';
+import 'package:app/presentation/views/screens/room/pages/home/room/room.creation.screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -45,13 +47,16 @@ class HomeViewModel extends LockableViewModel {
   ///
   /// Load Data
   ///
-  void loadData() async {
+  void loadData({bool refresh = true}) async {
     if (!locked) {
       lock(homeLocker);
       try {
         DataResponse response = await _userEndpoint.myRooms();
         final List<Room>? data = response.data<List<Room>>();
         if (data != null) {
+          if (refresh) {
+            rooms.clear();
+          }
           rooms.addAll(data);
         }
       } catch (e, s) {
@@ -59,6 +64,16 @@ class HomeViewModel extends LockableViewModel {
         print(s);
       }
       unlock(homeLocker);
+    }
+  }
+
+  void reloadData() => loadData(refresh: true);
+
+  void selectRoom(BuildContext context, Room room) async {
+    try {
+      await RoomService.injected().accessRoom(context, room);
+    } catch (e) {
+      //
     }
   }
 }

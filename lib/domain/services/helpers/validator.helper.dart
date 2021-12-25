@@ -59,6 +59,34 @@ class ValidatorHelper {
   }
 
   ///
+  /// Validate password
+  ///
+  static ValidatorState validateConfirmPassword(
+      String? confirmPassword, String? password,
+      {int minLength = 8}) {
+    bool isValid = true;
+    String? message;
+
+    if (confirmPassword == null) {
+      isValid = false;
+      message = tr(LocaleKeys.validatorRequiredField);
+    }
+
+    if (confirmPassword!.isEmpty) {
+      isValid = false;
+      message = tr(LocaleKeys.validatorPasswordEmpty);
+    }
+
+    if (confirmPassword != password) {
+      isValid = false;
+      message =
+          'Votre mot de passe de confirmation et votre mot de passe ne correspondent pas.';
+    }
+
+    return ValidatorState(isValid: isValid, message: message);
+  }
+
+  ///
   /// Validate field required
   ///
   static ValidatorState validateRequired(dynamic value) {

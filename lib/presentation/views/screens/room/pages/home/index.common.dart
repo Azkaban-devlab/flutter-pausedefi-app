@@ -1,12 +1,9 @@
 import 'package:app/domain/data/models/room.model.dart';
+import 'package:app/domain/services/helpers/navigation.helper.dart';
 import 'package:app/presentation/styles/colors.dart';
-import 'package:app/presentation/styles/roundings.dart';
 import 'package:app/presentation/viewmodels/home/home.viewmodel.dart';
-import 'package:app/presentation/views/screens/main/pages/home/room/room.creation.screen.dart';
+import 'package:app/presentation/views/screens/room/pages/home/room/room.join.screen.dart';
 import 'package:app/presentation/views/widgets/buttons/button.dart';
-import 'package:app/presentation/views/widgets/buttons/default_button.dart';
-import 'package:app/presentation/views/widgets/buttons/primary_button.dart';
-import 'package:app/presentation/views/widgets/buttons/secondary_button.dart';
 import 'package:app/presentation/views/widgets/custom/text_variant.dart';
 import 'package:flutter/material.dart';
 
@@ -62,11 +59,15 @@ class _HomeCommonBody extends StatelessWidget {
                                     crossAxisCount: 2),
                             itemCount: model.rooms.length,
                             itemBuilder: (context, index) => InkWell(
-                                  child: _RoomItem(model.rooms[index]),
+                                  child: _RoomItem(
+                                      model.rooms[index],
+                                      () => model.selectRoom(
+                                          context, model.rooms[index])),
                                 )))
                     : Center(
                         child: InkWell(
-                        child: _RoomItem(model.rooms.first),
+                        child: _RoomItem(model.rooms.first,
+                            () => model.selectRoom(context, model.rooms.first)),
                       )),
         const SizedBox(
           height: 50,
@@ -75,11 +76,7 @@ class _HomeCommonBody extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 40),
             child: Button(
               'Créer un salon',
-              () => Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (_) =>
-                          const RoomCreationScreen())), //TODO handle in better way to reload data on pop
+              () => NavigationHelper.navigateToCreationRoom(context),
               isOutlined: true,
             )),
         const SizedBox(
@@ -87,7 +84,8 @@ class _HomeCommonBody extends StatelessWidget {
         ),
         Padding(
             padding: const EdgeInsets.symmetric(horizontal: 40),
-            child: Button('Rejoindre un salon', () => null)),
+            child: Button('Rejoindre un salon',
+                () => NavigationHelper.navigateToAccessRoom(context))),
       ],
     );
   }
@@ -95,34 +93,37 @@ class _HomeCommonBody extends StatelessWidget {
 
 class _RoomItem extends StatelessWidget {
   final Room room;
+  final VoidCallback onTap;
 
-  const _RoomItem(this.room);
+  const _RoomItem(this.room, this.onTap);
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 150,
-      width: 100,
-      child: Column(
-        children: [
-          Container(
-            height: 100,
-            width: 100,
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              image: const DecorationImage(
-                  image: NetworkImage('https://source.unsplash.com/random'),
-                  fit: BoxFit.cover),
-              border: Border.all(color: AppColors.primaryColor, width: 2),
-            ),
+    return InkWell(
+        onTap: onTap,
+        child: SizedBox(
+          height: 150,
+          width: 100,
+          child: Column(
+            children: [
+              Container(
+                height: 100,
+                width: 100,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  image: const DecorationImage(
+                      image: NetworkImage('https://source.unsplash.com/random'),
+                      fit: BoxFit.cover),
+                  border: Border.all(color: AppColors.primaryColor, width: 2),
+                ),
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              TextVariant(room.name ?? ''),
+              const TextVariant('Type'),
+            ],
           ),
-          const SizedBox(
-            height: 10,
-          ),
-          TextVariant(room.name ?? ''),
-          const TextVariant('Type'),
-        ],
-      ),
-    );
+        ));
   }
 }
