@@ -14,6 +14,9 @@ class ChallengeViewModel extends LockableViewModel {
     if (challenge != null) {
       titleController.text = challenge?.title ?? '';
       descriptionController.text = challenge?.content ?? '';
+    } else {
+      challenge = Challenge();
+      challenge?.points = 10;
     }
   }
 
@@ -46,7 +49,6 @@ class ChallengeViewModel extends LockableViewModel {
         challenge?.title = titleController.text;
         challenge?.content = descriptionController.text;
       } else {
-        challenge = Challenge();
         challenge?.title = titleController.text;
         challenge?.content = descriptionController.text;
       }
@@ -54,5 +56,10 @@ class ChallengeViewModel extends LockableViewModel {
       //TODO handle this in better way
       Navigator.pop(context, challenge);
     }
+  }
+
+  void updatePoints(String? points) {
+    challenge?.points = int.parse(points ?? '');
+    notifyListeners();
   }
 }

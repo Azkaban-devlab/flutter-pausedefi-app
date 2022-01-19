@@ -21,6 +21,6 @@ Future<void> mainCommon(AppConfig appConfig) async {
 void main() {
   mainCommon(const AppConfig(
     appName: 'Pause Défi',
-    serverUrl: 'http://localhost:5000/',
+    serverUrl: 'http://pausedefi.online',
   ));
 }

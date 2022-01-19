@@ -2,8 +2,8 @@ import 'package:app/domain/data/models/room.model.dart';
 import 'package:app/domain/services/helpers/navigation.helper.dart';
 import 'package:app/presentation/styles/colors.dart';
 import 'package:app/presentation/viewmodels/home/home.viewmodel.dart';
-import 'package:app/presentation/views/screens/room/pages/home/room/room.join.screen.dart';
 import 'package:app/presentation/views/widgets/buttons/button.dart';
+import 'package:app/presentation/views/widgets/custom/placeholder/room.placeholder.dart';
 import 'package:app/presentation/views/widgets/custom/text_variant.dart';
 import 'package:flutter/material.dart';
 
@@ -28,8 +28,8 @@ class _HomeCommonBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final HomeViewModel model = HomeViewModel.provide(context);
-    // TODO: implement build
-    return Column(
+    return SingleChildScrollView(
+        child: Column(
       children: [
         const SizedBox(
           height: 40,
@@ -40,12 +40,12 @@ class _HomeCommonBody extends StatelessWidget {
           height: 80,
         ),
         const SizedBox(
-          height: 90,
+          height: 40,
         ),
         model.locked
             ? const Center(child: CircularProgressIndicator())
             : model.rooms.isEmpty
-                ? const Text('No rooms')
+                ? const RoomPlaceholder()
                 : model.rooms.length > 1
                     ? SizedBox(
                         height: 300,
@@ -87,7 +87,7 @@ class _HomeCommonBody extends StatelessWidget {
             child: Button('Rejoindre un salon',
                 () => NavigationHelper.navigateToAccessRoom(context))),
       ],
-    );
+    ));
   }
 }
 

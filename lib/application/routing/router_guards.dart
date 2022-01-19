@@ -24,7 +24,7 @@ class AuthGuard extends AutoRouteGuard {
 class RoomGuard extends AutoRouteGuard {
   @override
   void onNavigation(NavigationResolver resolver, StackRouter router) {
-    if (!(RoomService.injected().room != null)) {
+    if (RoomService.injected().room == null) {
       router.pushAndPopUntil(const RoomHomeScreenRoute(),
           predicate: (_) => false);
     } else {

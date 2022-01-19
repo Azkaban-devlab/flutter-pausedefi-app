@@ -152,7 +152,9 @@ class AppRouter extends _i11.RootStackRouter {
               path: '', parent: MainScreenRoute.name)
         ]),
         _i11.RouteConfig(AuthScreenRoute.name, path: '/login'),
-        _i11.RouteConfig(RoomHomeScreenRoute.name, path: '/home', children: [
+        _i11.RouteConfig(RoomHomeScreenRoute.name, path: '/home', guards: [
+          authGuard
+        ], children: [
           _i11.RouteConfig(RoomCreationScreenRoute.name,
               path: '', parent: RoomHomeScreenRoute.name),
           _i11.RouteConfig(RoomJoinScreenRoute.name,

@@ -112,7 +112,7 @@ class DialogService {
                   elevation: 4,
                   borderRadius: borderRadius ?? Roundings.dialogBorderRadius,
                   child: Container(
-                    padding: const EdgeInsets.all(24),
+                    padding: const EdgeInsets.all(0),
                     decoration: BoxDecoration(
                       color: AppColors.dialogColor.ofContext(context),
                       borderRadius:

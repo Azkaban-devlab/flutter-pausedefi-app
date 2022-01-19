@@ -68,7 +68,24 @@ class _ChallengeCreationBody extends StatelessWidget {
                     ],
                   )),
                   const Spacer(),
-                  const Text('Points'),
+                  Flexible(
+                      child: Row(
+                    children: [
+                      Flexible(
+                          child: DropdownButtonFormField(
+                              value: model.challenge?.points.toString(),
+                              items: const [
+                                DropdownMenuItem(
+                                    value: '10', child: Text('10')),
+                                DropdownMenuItem(
+                                    value: '20', child: Text('20')),
+                                DropdownMenuItem(value: '30', child: Text('30'))
+                              ],
+                              onChanged: (String? points) =>
+                                  model.updatePoints(points))),
+                      const Text('Points'),
+                    ],
+                  )),
                 ],
               )),
               const SizedBox(

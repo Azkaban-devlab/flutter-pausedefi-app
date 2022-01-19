@@ -142,7 +142,6 @@ class RoomService {
       if (clear) roomState.clearAll();
 
       final Room? room = await roomDAO.getRoom();
-
       roomState.fill(room: room);
     } catch (e) {
       //
@@ -165,7 +164,7 @@ class RoomService {
   Future<bool> _processAccessRoom(Room room) async {
     try {
       roomDAO.saveRoom(room);
-      await reset();
+      await reset(clear: false);
       return await reload();
     } catch (e) {
       //

@@ -29,6 +29,14 @@ abstract class UserEndpoint {
   })
   Future<DataResponse> me();
 
+  @PATCH('/api/users/me/challenges/{id}')
+  @Extra(<String, Object>{
+    DioClient.extraDataAutenticateKey: true,
+    DioClient.extraDataRefreskTokenNotNeedKey: true,
+  })
+  Future<DataResponse> updateChallengeState(
+      @Path('id') int id, @Body() Map<String, dynamic> state);
+
   /// Authentication
   @GET('/api/users/me/rooms')
   @Extra(<String, Object>{

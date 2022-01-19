@@ -36,6 +36,7 @@ export 'app.router.gr.dart';
   AdaptiveRoute<dynamic>(
     page: RoomHomeScreen,
     path: '/home',
+    guards: <Type>[AuthGuard],
     children: <AutoRoute<dynamic>>[
       AdaptiveRoute<dynamic>(page: RoomCreationScreen, path: ''),
       AdaptiveRoute<dynamic>(page: RoomJoinScreen, path: ''),

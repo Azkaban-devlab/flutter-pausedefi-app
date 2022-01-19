@@ -179,4 +179,7 @@ class AppColors {
 class CustomColors extends AppColors {
   static const Color greenColor = Color(0xFF2DC76D);
   static const Color greyColor = Color(0xFF7E7E7E);
+  static const Color redColor = Color(0xFFE32222);
+  static const Color greenAppleColor = Color(0xFF9DE825);
+  static const Color silver = Color(0xFFDEDEDE);
 }

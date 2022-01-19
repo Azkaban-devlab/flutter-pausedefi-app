@@ -9,6 +9,7 @@ import 'package:app/domain/data/resources/http/models/data.response.dart';
 import 'package:app/domain/data/resources/http/models/error.response.dart';
 import 'package:app/domain/data/resources/storage/dao/auth.dao.dart';
 import 'package:app/domain/services/helpers/navigation.helper.dart';
+import 'package:app/domain/services/injected/room.service.dart';
 import 'package:app/domain/services/ui/dialog.service.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:injectable/injectable.dart';
@@ -125,13 +126,11 @@ class AuthenticationService {
   ///
   Future<void> logout(BuildContext context) async {
     DialogService.showLoadingDialog(context);
-    try {
-      await authEndpoint.logout();
-    } catch (e) {
-      //
-    }
+    RoomService roomService = RoomService.injected();
     await authDAO.drop();
     authState.clearAll();
+    await roomService.roomDAO.drop();
+    roomService.roomState.clearAll();
     DialogService.closeLoadingDialog(context);
     NavigationHelper.navigateToHome(context);
   }

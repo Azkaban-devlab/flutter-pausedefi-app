@@ -10,6 +10,9 @@ import 'package:flutter/widgets.dart';
 class $AssetsImagesGen {
   const $AssetsImagesGen();
 
+  /// File path: assets/images/crown.png
+  AssetGenImage get crown => const AssetGenImage('assets/images/crown.png');
+
   /// File path: assets/images/logo-color.png
   AssetGenImage get logoColor =>
       const AssetGenImage('assets/images/logo-color.png');
