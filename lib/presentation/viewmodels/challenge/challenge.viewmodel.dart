@@ -8,11 +8,15 @@ class ChallengeViewModel extends LockableViewModel {
   final TextEditingController titleController = TextEditingController();
   final TextEditingController descriptionController = TextEditingController();
   Challenge? challenge;
+  final GlobalKey<FormState> formKey = GlobalKey();
 
   ChallengeViewModel(this.challenge) {
     if (challenge != null) {
       titleController.text = challenge?.title ?? '';
       descriptionController.text = challenge?.content ?? '';
+    } else {
+      challenge = Challenge();
+      challenge?.points = 10;
     }
   }
 
@@ -40,16 +44,22 @@ class ChallengeViewModel extends LockableViewModel {
   }
 
   void addChallenge(BuildContext context) {
-    if (challenge != null) {
-      challenge?.title = titleController.text;
-      challenge?.content = descriptionController.text;
-    } else {
-      challenge = Challenge();
-      challenge?.title = titleController.text;
-      challenge?.content = descriptionController.text;
+    if (formKey.currentState!.validate()) {
+      if (challenge != null) {
+        challenge?.title = titleController.text;
+        challenge?.content = descriptionController.text;
+      } else {
+        challenge?.title = titleController.text;
+        challenge?.content = descriptionController.text;
+      }
+      challenge?.creatorId = AuthenticationService.injected().user?.id;
+      //TODO handle this in better way
+      Navigator.pop(context, challenge);
     }
-    challenge?.creatorId = AuthenticationService.injected().user?.id;
-    //TODO handle this in better way
-    Navigator.pop(context, challenge);
+  }
+
+  void updatePoints(String? points) {
+    challenge?.points = int.parse(points ?? '');
+    notifyListeners();
   }
 }

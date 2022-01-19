@@ -113,7 +113,8 @@ ThemeData _buildBaseTheme({ThemeMode themeMode = ThemeMode.system}) {
     backgroundColor: AppColors.backgroundColor.of(themeMode),
     brightness: isDark ? Brightness.dark : Brightness.light,
     secondaryHeaderColor: AppColors.secondaryColor,
-    scaffoldBackgroundColor: AppColors.backgroundColor.of(themeMode),
+    scaffoldBackgroundColor:
+        Colors.white, //AppColors.backgroundColor.of(themeMode),
     primaryColor: AppColors.primaryColor,
     toggleableActiveColor: AppColors.primaryColor,
     sliderTheme:

@@ -1,18 +1,23 @@
 import 'package:dart_json_mapper/dart_json_mapper.dart';
 
 ///
-/// [AccessRoomDTO] response
+/// [AccessRoomResponseDTO] response
 ///
 @jsonSerializable
 @Json(caseStyle: CaseStyle.snake)
-class AccessRoomDTO {
+class AccessRoomResponseDTO {
   ///
   /// accessCode
   ///
   String? accessCode;
 
   ///
+  /// id
+  ///
+  int? id;
+
+  ///
   /// Constructor
   ///
-  AccessRoomDTO();
+  AccessRoomResponseDTO();
 }

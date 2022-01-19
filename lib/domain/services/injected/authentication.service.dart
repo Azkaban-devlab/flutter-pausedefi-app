@@ -1,5 +1,4 @@
 import 'package:app/application/injections/injector.dart';
-import 'package:app/application/kernel/app_helpers.dart';
 import 'package:app/domain/communication/states/auth.state.dart';
 import 'package:app/domain/data/models/user.model.dart';
 import 'package:app/domain/data/resources/http/dto/requests/auth/login.dto.dart';
@@ -10,6 +9,7 @@ import 'package:app/domain/data/resources/http/models/data.response.dart';
 import 'package:app/domain/data/resources/http/models/error.response.dart';
 import 'package:app/domain/data/resources/storage/dao/auth.dao.dart';
 import 'package:app/domain/services/helpers/navigation.helper.dart';
+import 'package:app/domain/services/injected/room.service.dart';
 import 'package:app/domain/services/ui/dialog.service.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:injectable/injectable.dart';
@@ -90,6 +90,30 @@ class AuthenticationService {
   }
 
   ///
+  /// Authenticate
+  ///
+  Future<void> register(BuildContext context, RegisterData data) async {
+    DialogService.showLoadingDialog(context);
+    try {
+      final LoginResponseDTO response = await authEndpoint.register(
+          LoginRequestDTO(
+              email: data.email,
+              password: data.password,
+              firstName: data.firstName,
+              lastName: data.lastName));
+      await _processAuthentication(
+        response.accessToken!,
+      );
+    } catch (e) {
+      //
+    }
+    DialogService.closeLoadingDialog(context);
+    if (await reload()) {
+      NavigationHelper.navigateToHome(context);
+    }
+  }
+
+  ///
   /// Initialize the service
   ///
   Future<void> initialize() async {
@@ -102,13 +126,11 @@ class AuthenticationService {
   ///
   Future<void> logout(BuildContext context) async {
     DialogService.showLoadingDialog(context);
-    try {
-      await authEndpoint.logout();
-    } catch (e) {
-      //
-    }
+    RoomService roomService = RoomService.injected();
     await authDAO.drop();
     authState.clearAll();
+    await roomService.roomDAO.drop();
+    roomService.roomState.clearAll();
     DialogService.closeLoadingDialog(context);
     NavigationHelper.navigateToHome(context);
   }
@@ -224,6 +246,29 @@ class AuthenticationData {
 
   /// Constructor
   AuthenticationData({
+    required this.email,
+    required this.password,
+  });
+}
+
+/// [RegisterData]
+class RegisterData {
+  /// first_name
+  final String firstName;
+
+  /// last_name
+  final String lastName;
+
+  /// email
+  final String email;
+
+  /// password
+  final String password;
+
+  /// Constructor
+  RegisterData({
+    required this.firstName,
+    required this.lastName,
     required this.email,
     required this.password,
   });

@@ -13,19 +13,19 @@ class RoomNamePage extends StatelessWidget {
     final RoomCreationViewModel model = RoomCreationViewModel.provide(context);
     return Container(
         padding: const EdgeInsets.symmetric(horizontal: 25),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Container(
-                padding: const EdgeInsets.only(left: 15, bottom: 5),
-                child: const TextVariant(
-                  'Nom du salon',
-                  variantType: TextVariantType.caption,
-                  color: Color(0xFFB2BFE6),
-                )),
-            SizedBox(
-                height: 40,
-                child: FormInput(
+        child: Form(
+            key: model.formKey,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                    padding: const EdgeInsets.only(left: 15, bottom: 5),
+                    child: const TextVariant(
+                      'Nom du salon',
+                      variantType: TextVariantType.caption,
+                      color: Color(0xFFB2BFE6),
+                    )),
+                FormInput(
                   controller: model.roomNameController,
                   borderType: FormInputBorderType.outline,
                   fillColor: const Color(0xFFB2BFE6),
@@ -34,18 +34,18 @@ class RoomNamePage extends StatelessWidget {
                   ),
                   validator: (String? v) =>
                       ValidatorHelper.validateRequired(v).message,
-                )),
-            const Spacer(),
-            Center(
-                child: SizedBox(
-                    width: 190,
-                    child: PrimaryTextButton(
-                        label: 'Suivant'.toUpperCase(),
-                        onTap: () => model.initRoom()))),
-            const SizedBox(
-              height: 60,
-            )
-          ],
-        ));
+                ),
+                const Spacer(),
+                Center(
+                    child: SizedBox(
+                        width: 190,
+                        child: PrimaryTextButton(
+                            label: 'Suivant'.toUpperCase(),
+                            onTap: () => model.initRoom()))),
+                const SizedBox(
+                  height: 60,
+                )
+              ],
+            )));
   }
 }

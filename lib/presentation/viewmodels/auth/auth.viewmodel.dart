@@ -14,12 +14,15 @@ class AuthViewModel extends LockableViewModel {
   ///
   /// Constructor
   ///
-  AuthViewModel(this._authEndpoint);
-
-  late final AuthEndpoint _authEndpoint;
+  AuthViewModel();
 
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
+  final TextEditingController firstNameController = TextEditingController();
+  final TextEditingController lastNameController = TextEditingController();
+  final TextEditingController confirmPasswordController =
+      TextEditingController();
+
   final GlobalKey<FormState> formKey = GlobalKey();
   bool isPasswordVisible = false;
   bool isLogin = true;
@@ -31,7 +34,7 @@ class AuthViewModel extends LockableViewModel {
       {required Widget Function(BuildContext context, Widget? child)? builder,
       Widget? child}) {
     return ChangeNotifierProvider<AuthViewModel>(
-      create: (BuildContext context) => AuthViewModel(AuthEndpoint()),
+      create: (BuildContext context) => AuthViewModel(),
       builder: builder,
       lazy: false,
       child: child,
@@ -56,10 +59,23 @@ class AuthViewModel extends LockableViewModel {
   }
 
   void handleLogin(BuildContext context) {
-    AuthenticationService.injected().authenticate(
-        context,
-        AuthenticationData(
-            email: emailController.text, password: passwordController.text));
+    if (formKey.currentState!.validate()) {
+      if (isLogin) {
+        AuthenticationService.injected().authenticate(
+            context,
+            AuthenticationData(
+                email: emailController.text,
+                password: passwordController.text));
+      } else {
+        AuthenticationService.injected().register(
+            context,
+            RegisterData(
+                firstName: firstNameController.text,
+                lastName: lastNameController.text,
+                email: emailController.text,
+                password: passwordController.text));
+      }
+    }
     /*_authEndpoint
         .recover(RecoverRequestDTO(email: emailController.text))
         .then((RecoverResponseDTO value) {})

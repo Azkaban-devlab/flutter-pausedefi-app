@@ -1,7 +1,8 @@
 import 'package:app/presentation/styles/colors.dart';
 import 'package:app/presentation/viewmodels/home/room/room.creation.viewmodel.dart';
-import 'package:app/presentation/views/screens/main/pages/home/room/pages/room.challenge.page.dart';
-import 'package:app/presentation/views/screens/main/pages/home/room/pages/room.name.page.dart';
+import 'package:app/presentation/views/screens/room/pages/home/room/pages/room.challenge.page.dart';
+import 'package:app/presentation/views/screens/room/pages/home/room/pages/room.code.page.dart';
+import 'package:app/presentation/views/screens/room/pages/home/room/pages/room.name.page.dart';
 import 'package:app/presentation/views/widgets/custom/text_variant.dart';
 import 'package:flutter/material.dart';
 
@@ -50,7 +51,7 @@ class _RoomCreationBody extends StatelessWidget {
             onPressed: () => model.navigateBackPage(context),
           ),
           title: const TextVariant(
-            'Créer un salon ',
+            'Créer un salon',
             variantType: TextVariantType.appBarTitle,
           ),
         ),
@@ -93,10 +94,10 @@ class _RoomCreationBody extends StatelessWidget {
                 physics: const NeverScrollableScrollPhysics(),
                 onPageChanged: (int index) => model.startTransition(index),
                 controller: model.pageController,
-                children: [
-                  const RoomNamePage(),
-                  const RoomChallengePage(),
-                  Center(child: Text(model.accessCode ?? 'No code')),
+                children: const [
+                  RoomNamePage(),
+                  RoomChallengePage(),
+                  RoomCodePage(),
                 ],
               ))
         ]));

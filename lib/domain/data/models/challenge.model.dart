@@ -64,6 +64,16 @@ class Challenge with EquatableMixin, JsonSerializableMixin<Challenge> {
   User? creator;
 
   ///
+  /// State
+  ///
+  String? state;
+
+  ///
+  /// points
+  ///
+  int? points;
+
+  ///
   /// Constructor
   ///
   Challenge();
@@ -71,4 +81,24 @@ class Challenge with EquatableMixin, JsonSerializableMixin<Challenge> {
   @JsonProperty(ignore: true)
   @override
   List<Object?> get props => <Object?>[id, title, content, creatorId, roomId];
+
+  @JsonProperty(ignore: true)
+  String? get challengersName {
+    if (challengers != null) {
+      if (challengers!.length > 1) {
+        return '${challengers?[0].fullName} ${challengers?[1].fullName} ...';
+      } else if (challengers?.isNotEmpty ?? false) {
+        return challengers?.first.fullName;
+      } else {
+        return '';
+      }
+    }
+  }
+
+  @JsonProperty(ignore: true)
+  String? get launchChallenge => 'Tu as lancé un défi à $challengersName';
+  @JsonProperty(ignore: true)
+  String? get userChallenge => "${creator?.fullName} t'as lancé un défi";
 }
+
+enum ChallengeState { in_progress, succeed, failed, rejected }

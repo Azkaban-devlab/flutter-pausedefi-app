@@ -2,6 +2,7 @@ import 'package:app/presentation/styles/colors.dart';
 import 'package:app/presentation/viewmodels/home/room/room.creation.viewmodel.dart';
 import 'package:app/presentation/views/widgets/buttons/button.dart';
 import 'package:app/presentation/views/widgets/buttons/primary_button.dart';
+import 'package:app/presentation/views/widgets/custom/separator.dart';
 import 'package:app/presentation/views/widgets/custom/text_variant.dart';
 import 'package:flutter/material.dart';
 
@@ -20,21 +21,7 @@ class RoomChallengePage extends StatelessWidget {
           const SizedBox(
             height: 50,
           ),
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.end,
-            children: [
-              const TextVariant('Idées de défis'),
-              const SizedBox(
-                width: 5,
-              ),
-              Expanded(
-                  child: Container(
-                margin: const EdgeInsets.only(bottom: 4),
-                height: 1,
-                color: Colors.black,
-              )),
-            ],
-          ),
+          const Separator(text: 'Idées de défis'),
           const SizedBox(
             height: 3,
           ),

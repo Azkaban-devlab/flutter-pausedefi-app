@@ -4,6 +4,7 @@ import 'package:app/application/injections/injector.dart';
 import 'package:app/application/injections/provider_wrapper.dart';
 import 'package:app/application/localizations/localizations.g.dart';
 import 'package:app/domain/services/injected/authentication.service.dart';
+import 'package:app/domain/services/injected/room.service.dart';
 import 'package:app/domain/services/injected/theme.service.dart';
 import 'package:app/presentation/views/screens/app.dart';
 import 'package:dart_json_mapper/dart_json_mapper.dart';
@@ -86,6 +87,7 @@ class AppKernel with WidgetsBindingObserver {
 
   Future<void> _initializeServices() async {
     await AuthenticationService.injected().initialize();
+    await RoomService.injected().initialize();
     await ThemeService.injected().initialize();
   }
 

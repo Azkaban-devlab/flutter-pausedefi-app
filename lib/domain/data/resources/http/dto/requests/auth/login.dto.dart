@@ -17,8 +17,18 @@ class LoginRequestDTO with JsonSerializableMixin<LoginRequestDTO> {
   ///
   final String password;
 
+  /// first_name
+  final String? firstName;
+
+  /// last_name
+  final String? lastName;
+
   ///
   /// Constructor
   ///
-  LoginRequestDTO({required this.email, required this.password});
+  LoginRequestDTO(
+      {required this.email,
+      required this.password,
+      this.firstName,
+      this.lastName});
 }

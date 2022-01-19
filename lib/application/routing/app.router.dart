@@ -1,6 +1,12 @@
 import 'package:app/presentation/views/screens/auth/auth.screen.dart';
 import 'package:app/presentation/views/screens/main/index.screen.dart';
-import 'package:app/presentation/views/screens/main/pages/home/index.screen.dart';
+import 'package:app/presentation/views/screens/main/pages/challenge/index.screen.dart';
+import 'package:app/presentation/views/screens/main/pages/feed/index.screen.dart';
+import 'package:app/presentation/views/screens/main/pages/notification/index.screen.dart';
+import 'package:app/presentation/views/screens/main/pages/ranking/index.screen.dart';
+import 'package:app/presentation/views/screens/room/pages/home/index.screen.dart';
+import 'package:app/presentation/views/screens/room/pages/home/room/room.creation.screen.dart';
+import 'package:app/presentation/views/screens/room/pages/home/room/room.join.screen.dart';
 import 'package:app/presentation/views/widgets/custom/component_scaffold.dart';
 import 'package:auto_route/annotations.dart';
 import 'package:auto_route/auto_route.dart';
@@ -15,14 +21,26 @@ export 'app.router.gr.dart';
     page: MainScreen,
     path: '/',
     initial: true,
-    guards: <Type>[AuthGuard],
+    guards: <Type>[AuthGuard, RoomGuard],
     children: <AutoRoute<dynamic>>[
-      AdaptiveRoute<dynamic>(page: HomeScreen, path: ''),
+      AdaptiveRoute<dynamic>(page: FeedScreen, path: ''),
+      AdaptiveRoute<dynamic>(page: ChallengeMainScreen, path: ''),
+      AdaptiveRoute<dynamic>(page: RankingScreen, path: ''),
+      AdaptiveRoute<dynamic>(page: NotificationScreen, path: ''),
     ],
   ),
   AdaptiveRoute<dynamic>(
     page: AuthScreen,
     path: '/login',
+  ),
+  AdaptiveRoute<dynamic>(
+    page: RoomHomeScreen,
+    path: '/home',
+    guards: <Type>[AuthGuard],
+    children: <AutoRoute<dynamic>>[
+      AdaptiveRoute<dynamic>(page: RoomCreationScreen, path: ''),
+      AdaptiveRoute<dynamic>(page: RoomJoinScreen, path: ''),
+    ],
   ),
   CustomRoute<dynamic>(
     page: ModalScreen,
