@@ -34,21 +34,27 @@ class _MainBody extends StatelessWidget {
               leading: IconButton(
                 padding: EdgeInsets.zero,
                 onPressed: () => RoomService.injected().exitRoom(context),
-                icon: const Icon(Icons.door_back_door),
-              ),
-              title: TextVariant(appBarTitle(tabsRouter!.activeIndex)),
-              elevation: 0,
-              shape: const Border(
-                bottom: BorderSide(
-                  color: CustomColors.silver,
+                icon: const Icon(
+                  Icons.door_back_door,
+                  color: Colors.white,
                 ),
               ),
+              title: TextVariant(
+                appBarTitle(tabsRouter!.activeIndex).toUpperCase(),
+                variantType: TextVariantType.appBarTitle,
+                color: Colors.white,
+              ),
+              elevation: 0,
+              backgroundColor: AppColors.primaryColor,
               actions: [
                 IconButton(
                     padding: EdgeInsets.zero,
                     onPressed: () =>
                         AuthenticationService.injected().logout(context),
-                    icon: const Icon(Icons.settings))
+                    icon: const Icon(
+                      Icons.settings,
+                      color: Colors.white,
+                    ))
               ],
             ),
         routes: const <PageRouteInfo<dynamic>>[
@@ -61,6 +67,7 @@ class _MainBody extends StatelessWidget {
               decoration: const BoxDecoration(
                   border: Border(top: BorderSide(color: CustomColors.silver))),
               child: BottomNavigationBar(
+                selectedItemColor: AppColors.primaryColor,
                 currentIndex: tabsRouter.activeIndex,
                 onTap: tabsRouter.setActiveIndex,
                 items: const <BottomNavigationBarItem>[
@@ -84,9 +91,9 @@ class _MainBody extends StatelessWidget {
   String appBarTitle(int index) {
     switch (index) {
       case 0:
-        return 'Feed';
+        return "Fil d'actualité";
       case 1:
-        return 'Défi';
+        return 'Défis';
       case 2:
         return 'Classement';
       case 3:
