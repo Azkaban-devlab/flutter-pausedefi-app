@@ -49,7 +49,10 @@ class _ChallengeDialogBody extends StatelessWidget {
                 ),
                 Align(
                   alignment: Alignment.center,
-                  child: TextVariant('Terminer le défi'.toUpperCase()),
+                  child: TextVariant(
+                    'Terminer le défi'.toUpperCase(),
+                    variantType: TextVariantType.appBarTitle,
+                  ),
                 )
               ],
             ),

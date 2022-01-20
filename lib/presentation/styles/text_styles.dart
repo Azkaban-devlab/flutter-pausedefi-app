@@ -213,9 +213,8 @@ class TextStyles {
       {BuildContext? context, Brightness? brightness}) {
     assert(context != null || brightness != null);
     return TextStyle(
-      fontFamily: 'Roboto',
-      fontSize: 32,
-      fontWeight: FontWeight.w600,
+      fontFamily: 'Righteous',
+      fontSize: 16,
       letterSpacing: 0,
       color: AppColors.onAppBarColor.ofBrightness(
           brightness ?? MediaQuery.platformBrightnessOf(context!)),
