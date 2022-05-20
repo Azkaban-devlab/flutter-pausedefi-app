@@ -25,7 +25,7 @@ class _AuthEndpoint implements AuthEndpoint {
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<LoginResponseDTO>(
             Options(method: 'POST', headers: _headers, extra: _extra)
-                .compose(_dio.options, '/auth/login',
+                .compose(_dio.options, '/api/login',
                     queryParameters: queryParameters, data: _data)
                 .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = JsonMapper.fromMap<LoginResponseDTO>(_result.data!)!;
@@ -42,7 +42,7 @@ class _AuthEndpoint implements AuthEndpoint {
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<LoginResponseDTO>(
             Options(method: 'POST', headers: _headers, extra: _extra)
-                .compose(_dio.options, '/auth/register',
+                .compose(_dio.options, '/api/register',
                     queryParameters: queryParameters, data: _data)
                 .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = JsonMapper.fromMap<LoginResponseDTO>(_result.data!)!;

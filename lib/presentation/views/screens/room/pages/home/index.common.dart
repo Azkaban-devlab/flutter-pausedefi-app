@@ -111,8 +111,9 @@ class _RoomItem extends StatelessWidget {
                 width: 100,
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
-                  image: const DecorationImage(
-                      image: NetworkImage('https://source.unsplash.com/random'),
+                  image: DecorationImage(
+                      image: NetworkImage(
+                          room.avatar ?? 'https://source.unsplash.com/random'),
                       fit: BoxFit.cover),
                   border: Border.all(color: AppColors.primaryColor, width: 2),
                 ),

@@ -16,6 +16,11 @@ class Room with EquatableMixin, JsonSerializableMixin<Room> {
   int? id;
 
   ///
+  /// Avatar
+  ///
+  String? avatar;
+
+  ///
   /// name
   ///
   String? name;
@@ -36,9 +41,9 @@ class Room with EquatableMixin, JsonSerializableMixin<Room> {
   List<User>? users;
 
   ///
-  /// creatorId
+  /// roomCreator
   ///
-  int? creatorId;
+  int? roomCreator;
 
   ///
   /// creator
@@ -57,5 +62,5 @@ class Room with EquatableMixin, JsonSerializableMixin<Room> {
 
   @JsonProperty(ignore: true)
   @override
-  List<Object?> get props => <Object?>[id, name, bio, creatorId];
+  List<Object?> get props => <Object?>[id, name, bio, roomCreator];
 }

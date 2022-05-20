@@ -22,7 +22,7 @@ abstract class UserEndpoint {
   }
 
   /// Authentication
-  @GET('/api/users/me')
+  @GET('/api/me/profile')
   @Extra(<String, Object>{
     DioClient.extraDataAutenticateKey: true,
     DioClient.extraDataRefreskTokenNotNeedKey: true
@@ -38,7 +38,7 @@ abstract class UserEndpoint {
       @Path('id') int id, @Body() Map<String, dynamic> state);
 
   /// Authentication
-  @GET('/api/users/me/rooms')
+  @GET('/api/me/rooms')
   @Extra(<String, Object>{
     DioClient.extraDataAutenticateKey: true,
     DioClient.extraDataRefreskTokenNotNeedKey: true

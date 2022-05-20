@@ -73,8 +73,8 @@ class ChallengeMainViewModel extends LockableViewModel {
       try {
         List<DataResponse> responses = await Future.wait([
           _roomEndpoint.getMyChallenge(RoomService.injected().room?.id ?? 0),
-          _roomEndpoint
-              .getMySendChallenge(RoomService.injected().room?.id ?? 0),
+          _roomEndpoint.getMyChallenge(RoomService.injected().room?.id ?? 0,
+              state: 'send'),
           _roomEndpoint.getIdeaChallenge(RoomService.injected().room?.id ?? 0),
           _roomEndpoint.getUserInRoom(RoomService.injected().room?.id ?? 0),
         ]);

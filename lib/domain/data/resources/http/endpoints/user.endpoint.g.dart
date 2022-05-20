@@ -27,7 +27,7 @@ class _UserEndpoint implements UserEndpoint {
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<DataResponse>(
             Options(method: 'GET', headers: _headers, extra: _extra)
-                .compose(_dio.options, '/api/users/me',
+                .compose(_dio.options, '/api/me/profile',
                     queryParameters: queryParameters, data: _data)
                 .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = JsonMapper.fromMap<DataResponse>(_result.data!)!;
@@ -66,7 +66,7 @@ class _UserEndpoint implements UserEndpoint {
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<DataResponse>(
             Options(method: 'GET', headers: _headers, extra: _extra)
-                .compose(_dio.options, '/api/users/me/rooms',
+                .compose(_dio.options, '/api/me/rooms',
                     queryParameters: queryParameters, data: _data)
                 .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = JsonMapper.fromMap<DataResponse>(_result.data!)!;
@@ -88,11 +88,14 @@ class _UserEndpoint implements UserEndpoint {
         MultipartFile.fromFileSync(file.path,
             filename: file.path.split(Platform.pathSeparator).last)));
     final _result = await _dio.fetch<Map<String, dynamic>>(
-        _setStreamType<DataResponse>(
-            Options(method: 'POST', headers: _headers, extra: _extra)
-                .compose(_dio.options, '/users/me',
-                    queryParameters: queryParameters, data: _data)
-                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+        _setStreamType<DataResponse>(Options(
+                method: 'POST',
+                headers: _headers,
+                extra: _extra,
+                contentType: 'multipart/form-data')
+            .compose(_dio.options, '/users/me',
+                queryParameters: queryParameters, data: _data)
+            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = JsonMapper.fromMap<DataResponse>(_result.data!)!;
     return value;
   }

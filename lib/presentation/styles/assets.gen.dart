@@ -3,7 +3,7 @@
 ///  FlutterGen
 /// *****************************************************
 
-// ignore_for_file: directives_ordering
+// ignore_for_file: directives_ordering,unnecessary_import
 
 import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -114,6 +114,8 @@ class SvgGenImage {
     String? semanticsLabel,
     bool excludeFromSemantics = false,
     Clip clipBehavior = Clip.hardEdge,
+    bool cacheColorFilter = false,
+    SvgTheme? theme,
   }) {
     return SvgPicture.asset(
       _assetName,
@@ -132,6 +134,8 @@ class SvgGenImage {
       semanticsLabel: semanticsLabel,
       excludeFromSemantics: excludeFromSemantics,
       clipBehavior: clipBehavior,
+      cacheColorFilter: cacheColorFilter,
+      theme: theme,
     );
   }
 

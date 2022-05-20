@@ -78,14 +78,8 @@ abstract class RoomEndpoint {
     DioClient.extraDataAutenticateKey: true,
     DioClient.extraDataRefreskTokenNotNeedKey: true,
   })
-  Future<DataResponse> getMyChallenge(@Path('id') int id);
-
-  @GET('/api/room/{id}/challenges/me/send')
-  @Extra(<String, Object>{
-    DioClient.extraDataAutenticateKey: true,
-    DioClient.extraDataRefreskTokenNotNeedKey: true,
-  })
-  Future<DataResponse> getMySendChallenge(@Path('id') int id);
+  Future<DataResponse> getMyChallenge(@Path('id') int id,
+      {@Query('state') String? state});
 
   @GET('/api/room/{id}/challenges/idea')
   @Extra(<String, Object>{

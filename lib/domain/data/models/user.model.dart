@@ -44,6 +44,11 @@ class User with EquatableMixin, JsonSerializableMixin<User> {
   int? points;
 
   ///
+  /// Avatar
+  ///
+  String? avatar;
+
+  ///
   /// Constructor
   ///
   User();
