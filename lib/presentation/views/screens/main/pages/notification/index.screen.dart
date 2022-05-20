@@ -1,11 +1,13 @@
+import 'dart:ffi';
 import 'package:app/presentation/styles/colors.dart';
 import 'package:app/presentation/viewmodels/home/room/room.creation.viewmodel.dart';
 import 'package:app/presentation/viewmodels/main/pages/challenge.viewmodel.dart';
-import 'package:app/presentation/views/widgets/buttons/button.dart';
 import 'package:app/presentation/views/widgets/buttons/default_button.dart';
 import 'package:app/presentation/views/widgets/custom/text_variant.dart';
 import 'package:app/presentation/views/widgets/utilities/icon/pause_defi_icon_icons.dart';
 import 'package:flutter/material.dart';
+import 'package:app/presentation/views/widgets/buttons/button.dart';
+
 
 class NotificationScreen extends StatelessWidget {
   const NotificationScreen({Key? key}) : super(key: key);
@@ -128,46 +130,38 @@ class NotificationScreen extends StatelessWidget {
                                   ),
                                   TextVariant('Prénom', color: Colors.white, fontWeight: FontWeight.bold, textAlign:TextAlign.center,),
 
-                                  TextVariant("a terminé ton défi"),
+                                  TextVariant("a terminé ton défi", color: Colors.white,),
                                 ],
                               ),
                             ),
-                            TextVariant("Etat : réussite"),
-                            Row(
-                              children: [
-                                TextVariant("Preuve :"),
-                                Image.network("https://cdn-icons-png.flaticon.com/512/6872/6872256.png",width: 30,
-                                height: 30,
-                                fit:BoxFit.fill
-                                )
-                              ],
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: TextVariant("Etat : réussite"),
                             ),
-                            // FIN DU CHILDREN
-                            /* Row(
-                                children : [
-                                  DefaultButton(
-                                      child: Row(
-                                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                        children: [
-                                          TextVariant('défi validé'.toUpperCase()),
-                                          const Icon(Icons.check)
-                                        ],
-                                      ),
-                                      onTap: () => ""),
-                                  DefaultButton(
-                                      child: Row(
-                                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                        children: [
-                                          TextVariant('défi invalidé'.toUpperCase()),
-                                          const Icon(Icons.close)
-                                        ],
-                                      ),
-                                      onTap: () => "")
-
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Row(
+                                children: [
+                                  TextVariant("Preuve :"),
+                                  Image.network("https://cdn-icons-png.flaticon.com/512/6872/6872256.png",width: 30,
+                                  height: 30,
+                                  fit:BoxFit.fill
+                                  )
+                                ],
+                              ),
+                            ),
+                            Row(
+                                children: [
+                                  Flexible(child:Button('défi validé', (){} ,
+                                      color:Colors.green)),
+                                  Flexible(child: Button('défi invalidé', (){} ,
+                                      color:Colors.red )),
                                 ]
+                            )
 
-                            )*/
-                          ]
+
+
+                          ] // FIN DU CHILDREN
 
                       )
                   )

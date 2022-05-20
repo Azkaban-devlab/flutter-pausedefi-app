@@ -8,10 +8,14 @@ class Button extends StatelessWidget {
   /// OnPressed Callback
   final VoidCallback onPressed;
 
+  /// color
+  final Color? color;
   /// isOutlined
   final bool isOutlined;
 
-  const Button(this.label, this.onPressed, {this.isOutlined = false, Key? key})
+
+
+  const Button(this.label, this.onPressed,  {this.isOutlined = false, this.color , Key? key})
       : super(key: key);
 
   @override
@@ -22,7 +26,7 @@ class Button extends StatelessWidget {
         child: isOutlined
             ? OutlinedButton(
                 style: OutlinedButton.styleFrom(
-                    primary: AppColors.primaryColor,
+                    primary: color ?? AppColors.primaryColor,
                     side: const BorderSide(
                         color: AppColors.primaryColor, width: 2),
                     shape: const RoundedRectangleBorder(
@@ -35,7 +39,7 @@ class Button extends StatelessWidget {
                 )))
             : ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                    primary: AppColors.primaryColor,
+                    primary: color ?? AppColors.primaryColor,
                     side: const BorderSide(
                         color: AppColors.primaryColor, width: 2),
                     shape: const RoundedRectangleBorder(

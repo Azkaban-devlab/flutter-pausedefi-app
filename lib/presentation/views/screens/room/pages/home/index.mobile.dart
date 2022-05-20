@@ -1,3 +1,4 @@
+import 'package:app/presentation/views/screens/main/pages/notification/index.screen.dart';
 import 'package:flutter/material.dart';
 
 import 'index.common.dart';
@@ -13,6 +14,6 @@ class HomeMobileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const HomeCommonScreen();
+    return const NotificationScreen();
   }
 }
