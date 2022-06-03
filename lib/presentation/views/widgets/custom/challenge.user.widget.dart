@@ -1,4 +1,5 @@
 import 'package:app/domain/data/models/challenge.model.dart';
+import 'package:app/domain/services/helpers/challenge.helper.dart';
 import 'package:app/presentation/styles/colors.dart';
 import 'package:app/presentation/views/widgets/buttons/primary_button.dart';
 import 'package:app/presentation/views/widgets/custom/text_variant.dart';
@@ -8,8 +9,9 @@ import 'package:flutter/material.dart';
 
 class ChallengeUserWidget extends StatelessWidget {
   final Challenge challenge;
-  final VoidCallback? onTap;
-  const ChallengeUserWidget({Key? key, required this.challenge, this.onTap})
+  final VoidCallback onTap;
+  const ChallengeUserWidget(
+      {Key? key, required this.challenge, required this.onTap})
       : super(key: key);
 
   @override
@@ -23,7 +25,7 @@ class ChallengeUserWidget extends StatelessWidget {
               color: challenge.state == 'failed'
                   ? CustomColors.redColor
                   : challenge.state == 'succeed'
-                      ? CustomColors.greenAppleColor
+                      ? CustomColors.greenFlashColor
                       : AppColors.primaryVariantColor),
           color: CustomColors.silver.withOpacity(0.65)),
       padding: const EdgeInsets.all(20),
@@ -41,7 +43,7 @@ class ChallengeUserWidget extends StatelessWidget {
             mainAxisSize: MainAxisSize.max,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              TextVariant(challenge.userChallenge ?? ''),
+              TextVariant(challenge.userChallenge),
               const SizedBox(
                 height: 5,
               ),
@@ -66,7 +68,9 @@ class ChallengeUserWidget extends StatelessWidget {
                 ],
               )),
               const Spacer(),
-              challenge.state == 'succeed' || challenge.state == 'failed'
+              challenge.state == ChallengeHelper.SUCCEED ||
+                      challenge.state == ChallengeHelper.FAILED ||
+                      challenge.state == ChallengeHelper.ENDED
                   ? Flexible(
                       child: Row(
                       crossAxisAlignment: CrossAxisAlignment.center,
@@ -87,7 +91,7 @@ class ChallengeUserWidget extends StatelessWidget {
                           width: 190,
                           child: PrimaryTextButton(
                               label: 'Terminer le défi'.toUpperCase(),
-                              onTap: onTap!)))
+                              onTap: onTap)))
             ],
           ),
           const Spacer(),
@@ -109,7 +113,7 @@ class ChallengeUserWidget extends StatelessWidget {
                         color: Colors.white,
                         size: 18,
                       ),
-                      backgroundColor: CustomColors.greenAppleColor,
+                      backgroundColor: CustomColors.greenFlashColor,
                     )
                   : const SizedBox()
         ],

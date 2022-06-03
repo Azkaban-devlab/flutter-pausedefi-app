@@ -40,6 +40,7 @@ class ChallengeUserPage extends StatelessWidget {
                     ),
                 itemBuilder: (context, index) => ChallengeUserWidget(
                       challenge: model.challengeDone[index],
+                      onTap: () {},
                     ))
             : const ChallengePlaceholder(type: ChallengeType.done),
       ],

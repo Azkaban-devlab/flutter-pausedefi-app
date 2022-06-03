@@ -41,6 +41,9 @@ dependencies:
   # http request
   dio: ^4.0.4
 
+  # file
+  image_picker: ^0.8.5+3
+
   # inversion of control
   get_it: ^7.2.0
   injectable: ^1.2.2

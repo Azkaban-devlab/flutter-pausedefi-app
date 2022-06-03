@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:app/domain/data/models/challenge.model.dart';
 import 'package:app/domain/data/models/room.model.dart';
@@ -8,9 +9,12 @@ import 'package:app/domain/data/resources/http/models/data.response.dart';
 import 'package:app/domain/services/helpers/navigation.helper.dart';
 import 'package:app/domain/services/injected/room.service.dart';
 import 'package:app/domain/services/ui/dialog.service.dart';
+import 'package:app/domain/services/ui/modal.service.dart';
 import 'package:app/infrastructure/abstracts/lockable_view_model.abstract.dart';
 import 'package:app/presentation/views/screens/room/pages/challenge/challenge.creation.screen.dart';
+import 'package:app/presentation/views/widgets/custom/choose_picture_mode.bottomsheet.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 
 ///
@@ -33,6 +37,9 @@ class RoomCreationViewModel extends LockableViewModel {
 
   Room newRoom = Room();
   List<Challenge> challenges = [];
+
+  final ImagePicker _picker = ImagePicker();
+  XFile? image;
 
   Timer? _timer;
 
@@ -72,7 +79,8 @@ class RoomCreationViewModel extends LockableViewModel {
   void submitRoom(BuildContext context) async {
     newRoom.challenges = challenges;
     try {
-      accessCode = await RoomService.injected().createRoom(context, newRoom);
+      accessCode = await RoomService.injected().createRoom(context, newRoom,
+          avatar: image?.path != null ? File(image?.path ?? '') : null);
     } catch (e) {
       //
     }
@@ -158,5 +166,15 @@ class RoomCreationViewModel extends LockableViewModel {
         }
       },
     );
+  }
+
+  void galleryClick() async {
+    // Pick an image
+    image = await _picker.pickImage(source: ImageSource.gallery);
+  }
+
+  void cameraClick() async {
+    // Capture a photo
+    image = await _picker.pickImage(source: ImageSource.camera);
   }
 }

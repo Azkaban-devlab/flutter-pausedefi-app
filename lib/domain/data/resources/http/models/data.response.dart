@@ -13,6 +13,16 @@ class DataResponse {
   /// constructor
   DataResponse(this.body, this.meta);
 
+  /// Format the [data] to many [T]
+  List<T> many<T>() {
+    return body is Iterable
+        ? (body as Iterable<dynamic>)
+            .map((dynamic e) =>
+                JsonMapper.deserialize<T>(e as Map<String, dynamic>)!)
+            .toList()
+        : <T>[JsonMapper.deserialize<T>(body as Map<String, dynamic>)!];
+  }
+
   /// Get data
   @JsonProperty(ignore: true)
   T? data<T>() {

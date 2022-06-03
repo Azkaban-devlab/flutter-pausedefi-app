@@ -1,4 +1,4 @@
-package com.example.app_pause_defi
+package com.tictactoc.pause_defi
 
 import io.flutter.embedding.android.FlutterActivity
 

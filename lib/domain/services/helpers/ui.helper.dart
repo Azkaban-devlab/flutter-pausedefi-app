@@ -6,6 +6,9 @@ import 'package:flutter/material.dart' show AppBar, Colors, Material;
 import 'package:flutter/widgets.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../../../presentation/views/widgets/custom/choose_picture_mode.bottomsheet.dart';
+import '../ui/modal.service.dart';
+
 ///
 /// Here you must have all helpers function
 /// depending of the context (BuildContext)
@@ -65,5 +68,14 @@ class UiHelper {
       }
     }
     return false;
+  }
+
+  /// BottomSheet Choose Media Mode
+  void openBottomSheet(BuildContext context, VoidCallback galleryClick,
+      VoidCallback cameraClick) async {
+    await ModalService.showAppModalBottomSheet(context,
+        expand: false,
+        builder: (BuildContext context) => ChoosePictureMode(
+            galleryClick: galleryClick, cameraClick: cameraClick));
   }
 }

@@ -1,3 +1,6 @@
+import 'dart:convert';
+import 'dart:io';
+
 import 'package:app/application/injections/injector.dart';
 import 'package:app/application/kernel/app_helpers.dart';
 import 'package:app/domain/data/models/challenge.model.dart';
@@ -25,11 +28,14 @@ abstract class RoomEndpoint {
 
   /// Create Room
   @POST('/api/room/create')
+  @MultiPart()
   @Extra(<String, Object>{
     DioClient.extraDataAutenticateKey: true,
     DioClient.extraDataRefreskTokenNotNeedKey: true,
   })
-  Future<AccessRoomResponseDTO> createRoom(@Body() Room body);
+  Future<AccessRoomResponseDTO> createRoom(
+      @Part() String name, @Part() String bio,
+      {@Part() List<Challenge>? challenges, @Part() File? avatar});
 
   /// Get Room by ID
   @GET('/api/room/{id}')
@@ -55,7 +61,7 @@ abstract class RoomEndpoint {
   Future<DataResponse> getUserInRoom(@Path('id') int id,
       {@Query('order_by') String? orderBy});
 
-  @POST('/api/room/{room_id}/challenges/{challenge_id}/challengers')
+  @POST('/api/room/{room_id}/challenge/{challenge_id}/challenger')
   @Extra(<String, Object>{
     DioClient.extraDataAutenticateKey: true,
     DioClient.extraDataRefreskTokenNotNeedKey: true,
@@ -73,7 +79,7 @@ abstract class RoomEndpoint {
   Future<HttpResponse> createChallenge(
       @Path('id') int id, @Body() Challenge challenge);
 
-  @GET('/api/room/{id}/challenges/me')
+  @GET('/api/room/{id}/challenge/me')
   @Extra(<String, Object>{
     DioClient.extraDataAutenticateKey: true,
     DioClient.extraDataRefreskTokenNotNeedKey: true,
@@ -81,10 +87,29 @@ abstract class RoomEndpoint {
   Future<DataResponse> getMyChallenge(@Path('id') int id,
       {@Query('state') String? state});
 
-  @GET('/api/room/{id}/challenges/idea')
+  @GET('/api/room/{id}/challenge/idea')
   @Extra(<String, Object>{
     DioClient.extraDataAutenticateKey: true,
     DioClient.extraDataRefreskTokenNotNeedKey: true,
   })
   Future<DataResponse> getIdeaChallenge(@Path('id') int id);
+
+  @PATCH('/api/room/{id}/challenge/{challenge_id}')
+  @MultiPart()
+  @Extra(<String, Object>{
+    DioClient.extraDataAutenticateKey: true,
+    DioClient.extraDataRefreskTokenNotNeedKey: true,
+  })
+  Future<DataResponse> updateChallengeState(
+      @Path('id') int? id, @Path('challenge_id') int challengeId,
+      {@Part() required String state,
+      @Part() File? proof,
+      @Part(name: 'user_id') int? userId});
+
+  @GET('/api/room/{id}/notification')
+  @Extra(<String, Object>{
+    DioClient.extraDataAutenticateKey: true,
+    DioClient.extraDataRefreskTokenNotNeedKey: true,
+  })
+  Future<DataResponse> getMyNotifications(@Path('id') int id);
 }

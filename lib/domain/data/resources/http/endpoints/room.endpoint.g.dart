@@ -16,21 +16,34 @@ class _RoomEndpoint implements RoomEndpoint {
   String? baseUrl;
 
   @override
-  Future<AccessRoomResponseDTO> createRoom(body) async {
+  Future<AccessRoomResponseDTO> createRoom(name, bio,
+      {challenges, avatar}) async {
     const _extra = <String, dynamic>{
       'authenticate': true,
       'refresh-token-not-need': true
     };
     final queryParameters = <String, dynamic>{};
+    queryParameters.removeWhere((k, v) => v == null);
     final _headers = <String, dynamic>{};
-    final _data = <String, dynamic>{};
-    _data.addAll(body.toJson());
+    final _data = FormData();
+    _data.fields.add(MapEntry('name', name));
+    _data.fields.add(MapEntry('bio', bio));
+    _data.fields.add(MapEntry('challenges', jsonEncode(challenges)));
+    if (avatar != null) {
+      _data.files.add(MapEntry(
+          'avatar',
+          MultipartFile.fromFileSync(avatar.path,
+              filename: avatar.path.split(Platform.pathSeparator).last)));
+    }
     final _result = await _dio.fetch<Map<String, dynamic>>(
-        _setStreamType<AccessRoomResponseDTO>(
-            Options(method: 'POST', headers: _headers, extra: _extra)
-                .compose(_dio.options, '/api/room/create',
-                    queryParameters: queryParameters, data: _data)
-                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+        _setStreamType<AccessRoomResponseDTO>(Options(
+                method: 'POST',
+                headers: _headers,
+                extra: _extra,
+                contentType: 'multipart/form-data')
+            .compose(_dio.options, '/api/room/create',
+                queryParameters: queryParameters, data: _data)
+            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = JsonMapper.fromMap<AccessRoomResponseDTO>(_result.data!)!;
     return value;
   }
@@ -108,7 +121,7 @@ class _RoomEndpoint implements RoomEndpoint {
     final _result = await _dio.fetch(_setStreamType<HttpResponse<dynamic>>(
         Options(method: 'POST', headers: _headers, extra: _extra)
             .compose(_dio.options,
-                '/api/room/${roomId}/challenges/${challengeId}/challengers',
+                '/api/room/${roomId}/challenge/${challengeId}/challenger',
                 queryParameters: queryParameters, data: _data)
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = _result.data;
@@ -149,7 +162,7 @@ class _RoomEndpoint implements RoomEndpoint {
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<DataResponse>(
             Options(method: 'GET', headers: _headers, extra: _extra)
-                .compose(_dio.options, '/api/room/${id}/challenges/me',
+                .compose(_dio.options, '/api/room/${id}/challenge/me',
                     queryParameters: queryParameters, data: _data)
                 .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = JsonMapper.fromMap<DataResponse>(_result.data!)!;
@@ -168,7 +181,60 @@ class _RoomEndpoint implements RoomEndpoint {
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<DataResponse>(
             Options(method: 'GET', headers: _headers, extra: _extra)
-                .compose(_dio.options, '/api/room/${id}/challenges/idea',
+                .compose(_dio.options, '/api/room/${id}/challenge/idea',
+                    queryParameters: queryParameters, data: _data)
+                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = JsonMapper.fromMap<DataResponse>(_result.data!)!;
+    return value;
+  }
+
+  @override
+  Future<DataResponse> updateChallengeState(id, challengeId,
+      {required state, proof, userId}) async {
+    const _extra = <String, dynamic>{
+      'authenticate': true,
+      'refresh-token-not-need': true
+    };
+    final queryParameters = <String, dynamic>{};
+    queryParameters.removeWhere((k, v) => v == null);
+    final _headers = <String, dynamic>{};
+    final _data = FormData();
+    _data.fields.add(MapEntry('state', state));
+    if (proof != null) {
+      _data.files.add(MapEntry(
+          'proof',
+          MultipartFile.fromFileSync(proof.path,
+              filename: proof.path.split(Platform.pathSeparator).last)));
+    }
+    if (userId != null) {
+      _data.fields.add(MapEntry('user_id', userId.toString()));
+    }
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<DataResponse>(Options(
+                method: 'PATCH',
+                headers: _headers,
+                extra: _extra,
+                contentType: 'multipart/form-data')
+            .compose(_dio.options, '/api/room/${id}/challenge/${challengeId}',
+                queryParameters: queryParameters, data: _data)
+            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = JsonMapper.fromMap<DataResponse>(_result.data!)!;
+    return value;
+  }
+
+  @override
+  Future<DataResponse> getMyNotifications(id) async {
+    const _extra = <String, dynamic>{
+      'authenticate': true,
+      'refresh-token-not-need': true
+    };
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<DataResponse>(
+            Options(method: 'GET', headers: _headers, extra: _extra)
+                .compose(_dio.options, '/api/room/${id}/notification',
                     queryParameters: queryParameters, data: _data)
                 .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = JsonMapper.fromMap<DataResponse>(_result.data!)!;

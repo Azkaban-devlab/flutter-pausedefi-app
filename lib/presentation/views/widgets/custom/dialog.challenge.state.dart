@@ -5,6 +5,8 @@ import 'package:app/presentation/views/widgets/buttons/primary_button.dart';
 import 'package:app/presentation/views/widgets/custom/text_variant.dart';
 import 'package:flutter/material.dart';
 
+import '../../../../domain/services/helpers/ui.helper.dart';
+
 class DialogChallengeState extends StatelessWidget {
   final Challenge challenge;
 
@@ -63,22 +65,12 @@ class _ChallengeDialogBody extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const TextVariant('Etat du défi'),
-                      const SizedBox(
-                        height: 8,
-                      ),
-                      CheckBox(
-                        isSucceed: model.challenge.state == 'succeed',
-                        onClick: () => model.updateChallengeState(),
-                      ),
-                      const SizedBox(
-                        height: 20,
-                      ),
                       const TextVariant('Preuve'),
                       const SizedBox(
                         height: 8,
                       ),
-                      const JoinFile(),
+                      JoinFile(() => UiHelper().openBottomSheet(
+                          context, model.galleryClick, model.cameraClick)),
                       const Spacer(),
                       PrimaryTextButton(
                           label: 'Valider'.toUpperCase(),
@@ -91,95 +83,30 @@ class _ChallengeDialogBody extends StatelessWidget {
   }
 }
 
-class CheckBox extends StatelessWidget {
-  final bool isSucceed;
-  final VoidCallback onClick;
-  const CheckBox({Key? key, required this.isSucceed, required this.onClick})
-      : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        InkWell(
-            onTap: onClick,
-            child: Row(
-              children: [
-                Container(
-                  height: 15,
-                  width: 15,
-                  decoration: BoxDecoration(
-                      borderRadius: const BorderRadius.all(Radius.circular(3)),
-                      border: Border.all(color: AppColors.primaryColor),
-                      color: isSucceed ? AppColors.primaryColor : null),
-                  child: isSucceed
-                      ? const Icon(
-                          Icons.check,
-                          color: Colors.white,
-                          size: 12,
-                        )
-                      : null,
-                ),
-                const SizedBox(
-                  width: 8,
-                ),
-                const TextVariant('Réussite')
-              ],
-            )),
-        const SizedBox(
-          height: 10,
-        ),
-        InkWell(
-            onTap: onClick,
-            child: Row(
-              children: [
-                Container(
-                  height: 15,
-                  width: 15,
-                  decoration: BoxDecoration(
-                      borderRadius: const BorderRadius.all(Radius.circular(3)),
-                      border: Border.all(color: AppColors.primaryColor),
-                      color: isSucceed ? null : AppColors.primaryColor),
-                  child: isSucceed
-                      ? null
-                      : const Icon(
-                          Icons.check,
-                          color: Colors.white,
-                          size: 12,
-                        ),
-                ),
-                const SizedBox(
-                  width: 8,
-                ),
-                const TextVariant('Echec')
-              ],
-            ))
-      ],
-    );
-  }
-}
-
 class JoinFile extends StatelessWidget {
-  const JoinFile({Key? key}) : super(key: key);
+  final VoidCallback onTap;
+  const JoinFile(this.onTap, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-        height: 25,
-        width: MediaQuery.of(context).size.width,
-        alignment: Alignment.centerLeft,
-        decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: const BorderRadius.all(Radius.circular(20)),
-            border: Border.all(color: AppColors.primaryColor)),
+    return InkWell(
+        onTap: onTap,
         child: Container(
-          width: MediaQuery.of(context).size.width / 2.5,
-          height: 25,
-          decoration: BoxDecoration(
-              borderRadius: const BorderRadius.all(Radius.circular(20)),
-              border: Border.all(color: AppColors.primaryColor),
-              color: AppColors.primaryColor),
-          child: const Center(child: TextVariant('Insérer un fichier')),
-        ));
+            height: 25,
+            width: MediaQuery.of(context).size.width,
+            alignment: Alignment.centerLeft,
+            decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: const BorderRadius.all(Radius.circular(20)),
+                border: Border.all(color: AppColors.primaryColor)),
+            child: Container(
+              width: MediaQuery.of(context).size.width / 2.5,
+              height: 25,
+              decoration: BoxDecoration(
+                  borderRadius: const BorderRadius.all(Radius.circular(20)),
+                  border: Border.all(color: AppColors.primaryColor),
+                  color: AppColors.primaryColor),
+              child: const Center(child: TextVariant('Insérer un fichier')),
+            )));
   }
 }

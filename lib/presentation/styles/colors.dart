@@ -180,6 +180,8 @@ class CustomColors extends AppColors {
   static const Color greenColor = Color(0xFF2DC76D);
   static const Color greyColor = Color(0xFF7E7E7E);
   static const Color redColor = Color(0xFFE32222);
-  static const Color greenAppleColor = Color(0xFF9DE825);
+  static const Color greenFlashColor = Color(0xFF9DE825);
+  static const Color greenAppleColor = Color(0xFFA5CD65);
   static const Color silver = Color(0xFFDEDEDE);
+  static const Color lightGrey = Color(0xFFC4C4C4);
 }

@@ -12,7 +12,7 @@ class ChallengePlaceholder extends StatelessWidget {
         return 'terminé';
       case ChallengeType.inProgress:
         return 'en cours';
-      case ChallengeType.send:
+      case ChallengeType.sent:
         return 'envoyé';
       case ChallengeType.idea:
         return '';
@@ -45,4 +45,4 @@ class ChallengePlaceholder extends StatelessWidget {
   }
 }
 
-enum ChallengeType { send, done, inProgress, idea }
+enum ChallengeType { sent, done, inProgress, idea }

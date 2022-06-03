@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:app/application/injections/injector.dart';
 import 'package:app/domain/communication/states/auth.state.dart';
 import 'package:app/domain/communication/states/room.state.dart';
@@ -54,11 +56,13 @@ class RoomService {
   ///
   /// Authenticate
   ///
-  Future<String?> createRoom(BuildContext context, Room room) async {
+  Future<String?> createRoom(BuildContext context, Room room,
+      {File? avatar}) async {
     DialogService.showLoadingDialog(context);
     try {
-      final AccessRoomResponseDTO response =
-          await _roomEndpoint.createRoom(room);
+      final AccessRoomResponseDTO response = await _roomEndpoint.createRoom(
+          room.name ?? '', room.bio ?? '',
+          challenges: room.challenges, avatar: avatar);
       await reload(id: response.id);
       DialogService.closeLoadingDialog(context);
       return response.accessCode;

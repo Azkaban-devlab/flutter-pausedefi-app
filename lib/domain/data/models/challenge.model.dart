@@ -44,6 +44,11 @@ class Challenge with EquatableMixin, JsonSerializableMixin<Challenge> {
   List<User>? challengers;
 
   ///
+  /// user (just when one state)
+  ///
+  User? user;
+
+  ///
   /// roomId
   ///
   int? roomId;
@@ -74,6 +79,11 @@ class Challenge with EquatableMixin, JsonSerializableMixin<Challenge> {
   int? points;
 
   ///
+  /// proof
+  ///
+  String? proof;
+
+  ///
   /// Constructor
   ///
   Challenge();
@@ -92,13 +102,24 @@ class Challenge with EquatableMixin, JsonSerializableMixin<Challenge> {
       } else {
         return '';
       }
+    } else if (user != null) {
+      return user?.fullName;
     }
+    return 'Aucun nom';
   }
 
   @JsonProperty(ignore: true)
-  String? get launchChallenge => 'Tu as lancé un défi à $challengersName';
+  String get launchChallenge => 'Tu as lancé un défi à $challengersName';
   @JsonProperty(ignore: true)
-  String? get userChallenge => "${creator?.fullName} t'as lancé un défi";
-}
+  String get userChallenge => "${creator?.fullName} t'as lancé un défi";
 
-enum ChallengeState { in_progress, succeed, failed, rejected }
+  @JsonProperty(ignore: true)
+  String get endedChallenge => "$challengersName a terminé ton défi";
+
+  @JsonProperty(ignore: true)
+  String get succeedChallenge =>
+      "Félicitation ! Tu as réussi le défi de ${creator?.fullName}";
+  @JsonProperty(ignore: true)
+  String get failedChallenge =>
+      "Dommage ! Tu as raté le défi de ${creator?.fullName}";
+}

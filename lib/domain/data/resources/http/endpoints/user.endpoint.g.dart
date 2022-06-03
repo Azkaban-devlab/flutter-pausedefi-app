@@ -35,26 +35,6 @@ class _UserEndpoint implements UserEndpoint {
   }
 
   @override
-  Future<DataResponse> updateChallengeState(id, state) async {
-    const _extra = <String, dynamic>{
-      'authenticate': true,
-      'refresh-token-not-need': true
-    };
-    final queryParameters = <String, dynamic>{};
-    final _headers = <String, dynamic>{};
-    final _data = <String, dynamic>{};
-    _data.addAll(state);
-    final _result = await _dio.fetch<Map<String, dynamic>>(
-        _setStreamType<DataResponse>(
-            Options(method: 'PATCH', headers: _headers, extra: _extra)
-                .compose(_dio.options, '/api/users/me/challenges/${id}',
-                    queryParameters: queryParameters, data: _data)
-                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    final value = JsonMapper.fromMap<DataResponse>(_result.data!)!;
-    return value;
-  }
-
-  @override
   Future<DataResponse> myRooms() async {
     const _extra = <String, dynamic>{
       'authenticate': true,

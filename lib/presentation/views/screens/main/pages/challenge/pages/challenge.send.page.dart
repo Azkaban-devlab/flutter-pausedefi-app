@@ -13,7 +13,7 @@ class ChallengeSendPage extends StatelessWidget {
     final ChallengeMainViewModel model =
         ChallengeMainViewModel?.provide(context);
     return model.challengeSend.isEmpty
-        ? const ChallengePlaceholder(type: ChallengeType.send)
+        ? const ChallengePlaceholder(type: ChallengeType.sent)
         : ListView.separated(
             padding: const EdgeInsets.symmetric(horizontal: 20),
             itemCount: model.challengeSend.length,
@@ -34,8 +34,7 @@ class ChallengeSendPage extends StatelessWidget {
                     mainAxisSize: MainAxisSize.max,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      TextVariant(
-                          model.challengeSend[index].launchChallenge ?? ''),
+                      TextVariant(model.challengeSend[index].launchChallenge),
                       const SizedBox(
                         height: 5,
                       ),

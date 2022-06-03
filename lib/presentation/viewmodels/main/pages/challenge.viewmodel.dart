@@ -2,9 +2,9 @@ import 'package:app/domain/data/models/challenge.model.dart';
 import 'package:app/domain/data/models/user.model.dart';
 import 'package:app/domain/data/resources/http/endpoints/room.endpoint.dart';
 import 'package:app/domain/data/resources/http/models/data.response.dart';
+import 'package:app/domain/services/helpers/challenge.helper.dart';
 import 'package:app/domain/services/injected/room.service.dart';
 import 'package:app/domain/services/ui/dialog.service.dart';
-import 'package:app/infrastructure/abstracts/extension/enum_extension.dart';
 import 'package:app/infrastructure/abstracts/lockable_view_model.abstract.dart';
 import 'package:app/presentation/views/screens/room/pages/challenge/challenge.creation.screen.dart';
 import 'package:app/presentation/views/widgets/custom/dialog.challenge.state.dart';
@@ -72,9 +72,10 @@ class ChallengeMainViewModel extends LockableViewModel {
       lock(_challengeLocker);
       try {
         List<DataResponse> responses = await Future.wait([
-          _roomEndpoint.getMyChallenge(RoomService.injected().room?.id ?? 0),
           _roomEndpoint.getMyChallenge(RoomService.injected().room?.id ?? 0,
-              state: 'send'),
+              state: ChallengeHelper.ALL),
+          _roomEndpoint.getMyChallenge(RoomService.injected().room?.id ?? 0,
+              state: ChallengeHelper.SENT),
           _roomEndpoint.getIdeaChallenge(RoomService.injected().room?.id ?? 0),
           _roomEndpoint.getUserInRoom(RoomService.injected().room?.id ?? 0),
         ]);
@@ -87,10 +88,12 @@ class ChallengeMainViewModel extends LockableViewModel {
         final List<User>? users = responses[3].data<List<User>>();
         if (userChallenge != null) {
           for (Challenge challenge in userChallenge) {
-            if (challenge.state == ChallengeState.in_progress.toShortString()) {
-              challengeInProgress.add(challenge);
-            } else {
+            if (challenge.state == ChallengeHelper.ENDED ||
+                challenge.state == ChallengeHelper.SUCCEED ||
+                challenge.state == ChallengeHelper.FAILED) {
               challengeDone.add(challenge);
+            } else {
+              challengeInProgress.add(challenge);
             }
           }
         }
@@ -148,7 +151,7 @@ class ChallengeMainViewModel extends LockableViewModel {
       newChallenge?.challengers = selectedUsers;
       HttpResponse response = await _roomEndpoint.createChallenge(
           RoomService.injected().room?.id ?? 0, newChallenge!);
-      if (response.response.statusCode == 204) {
+      if (response.response.statusCode == 200) {
         succeed = true;
       }
     } else {
