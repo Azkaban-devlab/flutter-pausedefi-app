@@ -22,7 +22,7 @@ class ChallengeUserWidget extends StatelessWidget {
           borderRadius: const BorderRadius.all(Radius.circular(20)),
           border: Border.all(
               width: 3,
-              color: challenge.state == 'failed'
+              color: challenge.state == 'failed' || challenge.state == 'refused'
                   ? CustomColors.redColor
                   : challenge.state == 'succeed'
                       ? CustomColors.greenFlashColor
@@ -70,7 +70,7 @@ class ChallengeUserWidget extends StatelessWidget {
               const Spacer(),
               challenge.state == ChallengeHelper.SUCCEED ||
                       challenge.state == ChallengeHelper.FAILED ||
-                      challenge.state == ChallengeHelper.ENDED
+                      challenge.state == ChallengeHelper.ENDED || challenge.state == ChallengeHelper.REFUSED
                   ? Flexible(
                       child: Row(
                       crossAxisAlignment: CrossAxisAlignment.center,
@@ -95,7 +95,7 @@ class ChallengeUserWidget extends StatelessWidget {
             ],
           ),
           const Spacer(),
-          challenge.state == 'failed'
+          challenge.state == 'failed' || challenge.state == 'refused'
               ? const CircleAvatar(
                   radius: 12,
                   child: Icon(

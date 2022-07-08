@@ -11,7 +11,7 @@ class ChallengeUserPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final ChallengeMainViewModel model =
         ChallengeMainViewModel?.provide(context);
-    return ListView(
+    return RefreshIndicator(onRefresh: ()async=>model.reloadData(), child:ListView(
       padding: const EdgeInsets.fromLTRB(20, 25, 20, 10),
       children: [
         const Separator(text: 'Défis en cours'),
@@ -46,6 +46,6 @@ class ChallengeUserPage extends StatelessWidget {
                     ))
             : const ChallengePlaceholder(type: ChallengeType.done),
       ],
-    );
+    ));
   }
 }
