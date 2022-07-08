@@ -1,5 +1,6 @@
 import 'package:app/domain/data/models/challenge.model.dart';
 import 'package:app/domain/services/helpers/challenge.helper.dart';
+import 'package:app/domain/services/ui/dialog.service.dart';
 import 'package:app/presentation/styles/colors.dart';
 import 'package:app/presentation/views/widgets/buttons/default_button.dart';
 import 'package:app/presentation/views/widgets/custom/text_variant.dart';
@@ -191,7 +192,19 @@ class NotificationProofWidget extends StatelessWidget {
                             color: Colors.white,
                           )),
                       const SizedBox(width: 8),
-                      Image.network(
+                      InkWell(
+                          onTap: ()=>DialogService.showCustomDialog(context, (context) => SizedBox(width: MediaQuery.of(context).size.width-20, height: MediaQuery.of(context).size.height/2.5, child: Image.network(
+                            challenge.proof ?? '',
+                            fit: BoxFit.contain,
+                            errorBuilder: (BuildContext context, Object object,
+                                StackTrace? stackTrace) =>
+                                Container(
+                                    color: CustomColors.lightGrey,
+                                    child: const Center(
+                                      child: Icon(Icons.camera),
+                                    )),
+                          )), barrierDismissible: true),
+                          child:Image.network(
                         challenge.proof ?? '',
                         height: 60,
                         width: 80,
@@ -204,7 +217,7 @@ class NotificationProofWidget extends StatelessWidget {
                                 child: const Center(
                                   child: Icon(Icons.camera),
                                 )),
-                      )
+                      ))
                     ],
                   )
                 ],
@@ -283,7 +296,7 @@ class NotificationEndWidget extends StatelessWidget {
               const SizedBox(
                 width: 12,
               ),
-              Column(
+              Flexible(child:Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   TextVariant(
@@ -300,7 +313,7 @@ class NotificationEndWidget extends StatelessWidget {
                     color: Colors.white,
                   )
                 ],
-              )
+              ))
             ],
           ),
           const SizedBox(

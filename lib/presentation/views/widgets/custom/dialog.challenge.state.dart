@@ -4,6 +4,7 @@ import 'package:app/presentation/viewmodels/widgets/challenge.dialog.viewmodel.d
 import 'package:app/presentation/views/widgets/buttons/primary_button.dart';
 import 'package:app/presentation/views/widgets/custom/text_variant.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 
 import '../../../../domain/services/helpers/ui.helper.dart';
 
@@ -70,7 +71,7 @@ class _ChallengeDialogBody extends StatelessWidget {
                         height: 8,
                       ),
                       JoinFile(() => UiHelper().openBottomSheet(
-                          context, model.galleryClick, model.cameraClick)),
+                          context, model.galleryClick, model.cameraClick), image: model.image,),
                       const Spacer(),
                       PrimaryTextButton(
                           label: 'Valider'.toUpperCase(),
@@ -85,7 +86,8 @@ class _ChallengeDialogBody extends StatelessWidget {
 
 class JoinFile extends StatelessWidget {
   final VoidCallback onTap;
-  const JoinFile(this.onTap, {Key? key}) : super(key: key);
+  final XFile? image;
+  const JoinFile(this.onTap, {Key? key, this.image}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -106,7 +108,7 @@ class JoinFile extends StatelessWidget {
                   borderRadius: const BorderRadius.all(Radius.circular(20)),
                   border: Border.all(color: AppColors.primaryColor),
                   color: AppColors.primaryColor),
-              child: const Center(child: TextVariant('Insérer un fichier')),
+              child: Center(child: TextVariant(image?.name ?? 'Insérer un fichier')),
             )));
   }
 }

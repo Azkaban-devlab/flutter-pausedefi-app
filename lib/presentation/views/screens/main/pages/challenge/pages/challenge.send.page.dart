@@ -15,7 +15,7 @@ class ChallengeSendPage extends StatelessWidget {
     return model.challengeSend.isEmpty
         ? const ChallengePlaceholder(type: ChallengeType.sent)
         : ListView.separated(
-            padding: const EdgeInsets.symmetric(horizontal: 20),
+            padding: const EdgeInsets.fromLTRB(20, 0, 20, 20),
             itemCount: model.challengeSend.length,
             separatorBuilder: (context, index) => const SizedBox(
                   height: 20,

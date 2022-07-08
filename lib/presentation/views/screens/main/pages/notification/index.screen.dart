@@ -18,23 +18,11 @@ class _NotificationBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final NotificationViewModel model = NotificationViewModel?.provide(context);
-    return InfiniteScrollview(
-        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-        shrinkWrap: true,
-        isLoading: model.locked,
-        loadingBuilder: (BuildContext context) =>
-            const Center(child: CircularProgressIndicator()),
-        emptyBuilder: (BuildContext context) => const Center(
-              child: Text('No notifs'),
-            ),
-        onRefresh: () async => model.loadData(refresh: true),
-        children: List.generate(
-            model.challenges.length,
-            (index) => Column(children: [
-                  model.getCorrectNotificationWidget(index),
-                  SizedBox(
-                    height: index == model.challenges.length - 1 ? 0 : 20,
-                  )
-                ])));
+    return model.locked?const Center(child:CircularProgressIndicator()):model.challenges.isEmpty? const Center(
+      child: Text('No notifs'),
+    ):RefreshIndicator(child: ListView.separated(padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20), itemBuilder: (BuildContext context, int index)=>model.getCorrectNotificationWidget(index), separatorBuilder: (BuildContext context, int index)=>SizedBox(
+      height: index == model.challenges.length - 1 ? 0 : 20,
+    ), itemCount: model.locked? model.challenges.length+1:model.challenges.length), onRefresh: () async => model.loadData(refresh: true));
+
   }
 }

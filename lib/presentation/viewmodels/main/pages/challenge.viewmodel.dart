@@ -90,9 +90,9 @@ class ChallengeMainViewModel extends LockableViewModel {
           for (Challenge challenge in userChallenge) {
             if (challenge.state == ChallengeHelper.ENDED ||
                 challenge.state == ChallengeHelper.SUCCEED ||
-                challenge.state == ChallengeHelper.FAILED) {
+                challenge.state == ChallengeHelper.FAILED || challenge.state == ChallengeHelper.REFUSED) {
               challengeDone.add(challenge);
-            } else {
+            } else if (challenge.state == ChallengeHelper.ACCEPTED) {
               challengeInProgress.add(challenge);
             }
           }

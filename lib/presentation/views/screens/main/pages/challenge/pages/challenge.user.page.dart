@@ -18,6 +18,7 @@ class ChallengeUserPage extends StatelessWidget {
         model.challengeInProgress.isNotEmpty
             ? ListView.separated(
                 shrinkWrap: true,
+            physics: ClampingScrollPhysics(),
                 padding: const EdgeInsets.symmetric(vertical: 25),
                 itemCount: model.challengeInProgress.length,
                 separatorBuilder: (context, index) => const SizedBox(
@@ -34,6 +35,7 @@ class ChallengeUserPage extends StatelessWidget {
             ? ListView.separated(
                 shrinkWrap: true,
                 padding: const EdgeInsets.symmetric(vertical: 25),
+            physics: ClampingScrollPhysics(),
                 itemCount: model.challengeDone.length,
                 separatorBuilder: (context, index) => const SizedBox(
                       height: 10,

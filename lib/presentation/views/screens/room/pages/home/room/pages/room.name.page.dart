@@ -48,7 +48,7 @@ class RoomNamePage extends StatelessWidget {
                       color: Color(0xFFB2BFE6),
                     )),
                 JoinFile(() => UiHelper().openBottomSheet(
-                    context, model.galleryClick, model.cameraClick)),
+                    context, model.galleryClick, model.cameraClick), image: model.image,),
                 const Spacer(),
                 Center(
                     child: SizedBox(

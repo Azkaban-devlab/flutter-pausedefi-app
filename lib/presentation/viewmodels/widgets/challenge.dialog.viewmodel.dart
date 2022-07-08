@@ -17,9 +17,7 @@ class ChallengeDialogViewModel extends LockableViewModel {
   XFile? image;
   Challenge challenge;
 
-  ChallengeDialogViewModel(this._roomEndpoint, this.challenge) {
-    challenge.state = 'failed';
-  }
+  ChallengeDialogViewModel(this._roomEndpoint, this.challenge);
 
   ///
   /// Build this ViewModel
