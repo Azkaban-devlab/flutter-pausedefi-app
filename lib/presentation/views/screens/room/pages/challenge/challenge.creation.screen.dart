@@ -15,26 +15,26 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class ChallengeCreationScreen extends StatelessWidget {
-  final bool isFromRoomCreation;
-  final Challenge? challenge;
-  const ChallengeCreationScreen(
-      {this.challenge, this.isFromRoomCreation = false, Key? key})
-      : super(key: key);
+final bool isFromRoomCreation;
+final Challenge? challenge;
+const ChallengeCreationScreen(
+{this.challenge, this.isFromRoomCreation = false, Key? key})
+: super(key: key);
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: TextVariant(
-          isFromRoomCreation ? 'Créer un salon ' : 'Création de défis',
-          variantType: TextVariantType.appBarTitle,
-        ),
+@override
+Widget build(BuildContext context) {
+  return Scaffold(
+    appBar: AppBar(
+      title: TextVariant(
+        isFromRoomCreation ? 'Créer un salon ' : 'Création de défis',
+        variantType: TextVariantType.appBarTitle,
       ),
-      body: ChallengeViewModel?.buildWithProvider(
-          builder: (_, __) => _ChallengeCreationBody(), challenge: challenge),
+    ),
+    body: ChallengeViewModel?.buildWithProvider(
+        builder: (_, __) => _ChallengeCreationBody(), challenge: challenge),
 
-    );
-  }
+  );
+}
 }
 
 class _ChallengeCreationBody extends StatelessWidget {
@@ -251,6 +251,12 @@ class _ChallengeCreationBody extends StatelessWidget {
                           ),
                           Expanded(
                             child: Card(
+                              shape: RoundedRectangleBorder( //<-- SEE HERE
+                                side: BorderSide(
+                                  color: AppColors.primaryColor,
+                                ),
+                                borderRadius: BorderRadius.circular(8.0),
+                              ),
                               elevation: 1,
                               color: AppColors.onPrimaryColor,
                               child: Padding(
@@ -269,7 +275,11 @@ class _ChallengeCreationBody extends StatelessWidget {
                                         width: 100,
                                       ),
                                     ),
-                                    Text('data')
+                                    Text('Jason Perra',
+                                      style: TextStyle(
+                                          fontSize: 25,
+                                          fontWeight: FontWeight.bold),
+                                    )
                                   ],
                                 ),
                               ),
@@ -282,6 +292,12 @@ class _ChallengeCreationBody extends StatelessWidget {
                         children: [
                           Expanded(
                             child: Card(
+                              shape: RoundedRectangleBorder( //<-- SEE HERE
+                                side: BorderSide(
+                                  color: AppColors.primaryColor,
+                                ),
+                                borderRadius: BorderRadius.circular(8.0),
+                              ),
                               elevation: 1,
                               color: AppColors.onPrimaryColor,
                               child: Padding(
@@ -292,10 +308,11 @@ class _ChallengeCreationBody extends StatelessWidget {
                                     SizedBox(
                                       height:150,
                                     ),
-                                    ClipRRect(
-                                      borderRadius: BorderRadius.circular(8.0),
-                                    ),
-                                    Text('data')
+                                    Text('data2',
+                                      style: TextStyle(
+                                          fontSize: 25,
+                                          fontWeight: FontWeight.bold),
+                                    )
                                   ],
                                 ),
                               ),
@@ -303,6 +320,12 @@ class _ChallengeCreationBody extends StatelessWidget {
                           ),
                           Expanded(
                             child: Card(
+                              shape: RoundedRectangleBorder( //<-- SEE HERE
+                                side: BorderSide(
+                                  color: AppColors.primaryColor,
+                                ),
+                                borderRadius: BorderRadius.circular(8.0),
+                              ),
                               elevation: 1,
                               color: AppColors.onPrimaryColor,
                               child: Padding(
@@ -313,10 +336,11 @@ class _ChallengeCreationBody extends StatelessWidget {
                                     SizedBox(
                                       height:150,
                                     ),
-                                    ClipRRect(
-                                      borderRadius: BorderRadius.circular(8.0),
-                                    ),
-                                    Text('data2')
+                                    Text('data2',
+                                      style: TextStyle(
+                                      fontSize: 25,
+                                      fontWeight: FontWeight.bold),
+                                    )
                                   ],
                                 ),
                               ),
