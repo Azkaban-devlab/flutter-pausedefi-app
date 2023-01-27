@@ -43,7 +43,7 @@ class Button extends StatelessWidget {
                 onPressed: onPressed,
                 child: Center(
                     child: Text(
-                  label.toUpperCase(),
+                  label,
                   style: const TextStyle(color: Colors.white),
                 ))));
   }
