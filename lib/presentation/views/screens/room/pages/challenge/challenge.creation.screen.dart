@@ -264,16 +264,13 @@ class _ChallengeCreationBody extends StatelessWidget {
                                 child: Column(
                                   mainAxisSize: MainAxisSize.min,
                                   children: [
-                                    SizedBox(
-                                      height:150,
-                                    ),
-                                    ClipRRect(
-                                      borderRadius: BorderRadius.circular(8.0),
-                                      child: Image.network(
-                                        'https://picsum.photos/250?image=9',
-                                        height: 150,
-                                        width: 100,
+                                    CircleAvatar(
+                                    radius: 48, // Image radius
+                                    backgroundImage: NetworkImage('https://source.unsplash.com/random',
                                       ),
+                                    ),
+                                    SizedBox(
+                                      height:50,
                                     ),
                                     Text('Jason Perra',
                                       style: TextStyle(
@@ -305,10 +302,15 @@ class _ChallengeCreationBody extends StatelessWidget {
                                 child: Column(
                                   mainAxisSize: MainAxisSize.min,
                                   children: [
-                                    SizedBox(
-                                      height:150,
+                                    CircleAvatar(
+                                      radius: 48, // Image radius
+                                      backgroundImage: NetworkImage('https://source.unsplash.com/random',
+                                      ),
                                     ),
-                                    Text('data2',
+                                    SizedBox(
+                                      height:50,
+                                    ),
+                                    Text('Jason Perra',
                                       style: TextStyle(
                                           fontSize: 25,
                                           fontWeight: FontWeight.bold),
@@ -332,16 +334,21 @@ class _ChallengeCreationBody extends StatelessWidget {
                                 padding: const EdgeInsets.all(8.0),
                                 child: Column(
                                   mainAxisSize: MainAxisSize.min,
-                                  children: [
-                                    SizedBox(
-                                      height:150,
-                                    ),
-                                    Text('data2',
-                                      style: TextStyle(
-                                      fontSize: 25,
-                                      fontWeight: FontWeight.bold),
-                                    )
-                                  ],
+                                    children: [
+                                      CircleAvatar(
+                                        radius: 48, // Image radius
+                                        backgroundImage: NetworkImage('https://source.unsplash.com/random',
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        height:50,
+                                      ),
+                                      Text('Jason Perra',
+                                        style: TextStyle(
+                                            fontSize: 25,
+                                            fontWeight: FontWeight.bold),
+                                      )
+                                    ],
                                 ),
                               ),
                             ),
